@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sidequest 1: Atlassian Forge Docs Knowledge Base Sync</title>
+  <style>
+    :root {
+      --primary-bg: #181c24;
+      --primary-text: #e0e6ed;
+      --accent: #00fff7;
+      --box-bg: #23234d;
+      --code-bg: #23234d;
+      --code-text: #00fff7;
+      --success: #00ff99;
+    }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--primary-bg); color: var(--primary-text); margin: 0; padding: 2em; transition: background 0.3s, color 0.3s; }
+    h1, h2, h3 { color: var(--accent); }
+    code, pre { background: var(--code-bg); color: var(--code-text); border-radius: 4px; padding: 2px 6px; }
+    .section { margin-bottom: 2em; }
+    ul { margin-left: 1.5em; }
+    .success { color: var(--success); font-weight: bold; }
+    .box { background: var(--box-bg); border-radius: 8px; padding: 1em 1.5em; margin-bottom: 1.5em; transition: background 0.3s; }
+    select, option { background: var(--box-bg); color: var(--accent); border-radius: 4px; }
+    #animation-preview > div { transition: background 0.3s, color 0.3s; }
+  </style>
+</head>
+<body>
+  <h1>Sidequest 1: Syncing Atlassian Forge Docs to Knowledge Base</h1>
+  <div class="section box" style="background:#151528;">
+    <h2>Theme Selector &amp; Animations Preview</h2>
+    <label for="theme-select" style="color:#00fff7;">Choose a sci-fi theme:</label>
+    <select id="theme-select" onchange="setTheme(this.value)" style="margin-left:1em; background:#23234d; color:#00fff7; border-radius:4px; padding:4px 8px;">
+      <option value="matrix">Matrix</option>
+      <option value="cyberpunk">Cyberpunk</option>
+      <option value="dune">Dune</option>
+      <option value="star-trek">Star Trek</option>
+      <option value="rebel-alliance">Rebel Alliance</option>
+      <option value="galactic-empire">Galactic Empire</option>
+      <option value="holo-deck">Holo Deck</option>
+      <option value="default">Default</option>
+    </select>
+    <div id="animation-preview" style="margin-top:1.5em;"></div>
+  </div>
+  <div class="section box">
+    <h2>Objective</h2>
+    <p>Automatically crawl, extract, and sync all documentation, code snippets, and prompts from the Atlassian Forge documentation site (<a href="https://developer.atlassian.com/platform/forge/" target="_blank">https://developer.atlassian.com/platform/forge/</a> and all subpages) into your local SQLite knowledge base for use in your sci-fi form builder and agent workflows.</p>
+  </div>
+  <div class="section box">
+    <h2>What We Did</h2>
+    <ul>
+      <li><b>Analyzed Existing Scraper:</b> Reviewed <code>update_forge_knowledge_base.py</code> and your SQLite schema. Identified that the script could scrape a fixed set of pages, but not crawl all subpages.</li>
+      <li><b>Added a Crawler:</b> Implemented a crawler function to recursively discover all internal documentation pages under <code>/platform/forge/</code>. The crawler collects URLs, titles, and meta descriptions for each page.</li>
+      <li><b>Refactored Main Logic:</b> Replaced the static <code>RESOURCES</code> list with the dynamic list returned by the crawler. Ensured all discovered pages are processed for documentation, code snippets, and prompts.</li>
+      <li><b>Restored and Improved Database Logic:</b> Restored the <code>upsert_resource</code> function to insert or update resources in the database. Ensured code snippets and prompts are deduplicated and linked to their parent resource.</li>
+      <li><b>Added User Feedback:</b> Added print-based progress reporting: for each page, the script prints <code>[current/total] Processing: &lt;url&gt;</code>. This gives you real-time feedback on the script’s progress and helps estimate completion time.</li>
+      <li><b>Error Handling and Filtering:</b> The script skips code snippets using deprecated UI Kit 1 patterns (e.g., <code>@forge/ui</code>). Handles network and parsing errors gracefully, logging warnings but continuing the crawl.</li>
+    </ul>
+  </div>
+  <div class="section box">
+    <h2>How to Use</h2>
+    <ol>
+      <li><b>Run the Script:</b><br>
+        <pre>python update_forge_knowledge_base.py</pre>
+        The script will crawl all Forge documentation pages, extract content, and update your SQLite knowledge base.
+      </li>
+      <li><b>Monitor Progress:</b><br>
+        Watch the terminal for <code>[current/total] Processing: &lt;url&gt;</code> messages. At the end, you’ll see a summary with the timestamp.
+      </li>
+      <li><b>Result:</b><br>
+        Your knowledge base will be fully populated with the latest Forge documentation, code snippets (UI Kit 2+ only), and prompts. This enables advanced agent workflows, code search, and prompt-driven help for your form builder project.
+      </li>
+    </ol>
+  </div>
+  <div class="section box">
+    <h2>Summary</h2>
+    <ul>
+      <li><b>Automated:</b> No more manual URL lists—new docs are auto-discovered.</li>
+      <li><b>Filtered:</b> Only modern, relevant code is stored (UI Kit 2+).</li>
+      <li><b>Extensible:</b> You can add a progress bar or concurrency for even better UX in the future.</li>
+      <li><b>Ready for AI/agent use:</b> Your knowledge base is now a powerful resource for coding, documentation, and prompt-driven automation.</li>
+    </ul>
+    <p class="success">Sidequest 1 is complete!</p>
+  </div>
+</body>
+</body>
+<script>
+const themeVars = {
+  matrix: {
+    '--primary-bg': '#000',
+    '--primary-text': '#00ff00',
+    '--accent': '#00ff00',
+    '--box-bg': '#001a00',
+    '--code-bg': '#001a00',
+    '--code-text': '#00ff00',
+    '--success': '#00ff99',
+  },
+  cyberpunk: {
+    '--primary-bg': '#0f001a',
+    '--primary-text': '#ff0080',
+    '--accent': '#00fff7',
+    '--box-bg': '#23234d',
+    '--code-bg': '#23234d',
+    '--code-text': '#00fff7',
+    '--success': '#00ff99',
+  },
+  dune: {
+    '--primary-bg': '#faf6f0',
+    '--primary-text': '#5d4e37',
+    '--accent': '#d4a574',
+    '--box-bg': '#f5f1e8',
+    '--code-bg': '#f5f1e8',
+    '--code-text': '#8b4513',
+    '--success': '#d4a574',
+  },
+  'star-trek': {
+    '--primary-bg': '#001a33',
+    '--primary-text': '#ff6b35',
+    '--accent': '#ff6b35',
+    '--box-bg': '#004e92',
+    '--code-bg': '#004e92',
+    '--code-text': '#ff6b35',
+    '--success': '#00ff99',
+  },
+  'rebel-alliance': {
+    '--primary-bg': '#2a0000',
+    '--primary-text': '#ffaa00',
+    '--accent': '#ffaa00',
+    '--box-bg': '#ff4444',
+    '--code-bg': '#ff4444',
+    '--code-text': '#ffaa00',
+    '--success': '#ffaa00',
+  },
+  'galactic-empire': {
+    '--primary-bg': '#222',
+    '--primary-text': '#ff0000',
+    '--accent': '#ff0000',
+    '--box-bg': '#666',
+    '--code-bg': '#666',
+    '--code-text': '#ff0000',
+    '--success': '#ff0000',
+  },
+  'holo-deck': {
+    '--primary-bg': '#00d4ff',
+    '--primary-text': '#7b68ee',
+    '--accent': '#7b68ee',
+    '--box-bg': '#e0f7fa',
+    '--code-bg': '#e0f7fa',
+    '--code-text': '#7b68ee',
+    '--success': '#7b68ee',
+  },
+  default: {
+    '--primary-bg': '#181c24',
+    '--primary-text': '#e0e6ed',
+    '--accent': '#00fff7',
+    '--box-bg': '#23234d',
+    '--code-bg': '#23234d',
+    '--code-text': '#00fff7',
+    '--success': '#00ff99',
+  }
+};
+const animations = {
+  matrix: `<div style='padding:16px;background:#000;color:#00ff00;text-align:center;border-radius:8px;margin-bottom:16px;'>🔴 MATRIX ANIMATION 🔴<br>Digital rain falling...</div>`,
+  cyberpunk: `<div style='padding:16px;background:#0ff;color:#ff0080;text-align:center;border-radius:8px;margin-bottom:16px;'>⚡ CYBERPUNK GRID ⚡<br>Neon lights pulsing...</div>`,
+  dune: `<div style='padding:16px;background:#d4a574;color:#8b4513;text-align:center;border-radius:8px;margin-bottom:16px;'>🏜️ DUNE SPICE FLOW 🏜️<br>Desert winds blowing...</div>`,
+  'star-trek': `<div style='padding:16px;background:#004e92;color:#ff6b35;text-align:center;border-radius:8px;margin-bottom:16px;'>🚀 LCARS INTERFACE 🚀<br>Data streaming...</div>`,
+  'rebel-alliance': `<div style='padding:16px;background:#ff4444;color:#ffaa00;text-align:center;border-radius:8px;margin-bottom:16px;'>⭐ REBEL ALLIANCE ⭐<br>Hope rising...</div>`,
+  'galactic-empire': `<div style='padding:16px;background:#666;color:#ff0000;text-align:center;border-radius:8px;margin-bottom:16px;'>💀 GALACTIC EMPIRE 💀<br>Darkness spreading...</div>`,
+  'holo-deck': `<div style='padding:16px;background:#00d4ff;color:#7b68ee;text-align:center;border-radius:8px;margin-bottom:16px;'>🌌 HOLO DECK 🌌<br>Reality shifting...</div>`,
+  default: `<div style='padding:16px;background:#f0f0f0;color:#333;text-align:center;border-radius:8px;margin-bottom:16px;'>🎨 DEFAULT THEME 🎨</div>`
+};
+function setTheme(theme) {
+  // Set CSS variables for the theme
+  const vars = themeVars[theme] || themeVars['default'];
+  for (const key in vars) {
+    document.documentElement.style.setProperty(key, vars[key]);
+  }
+  document.getElementById('animation-preview').innerHTML = animations[theme] || animations['default'];
+}
+// Set initial theme
+setTheme('matrix');
+</script>
+</html>

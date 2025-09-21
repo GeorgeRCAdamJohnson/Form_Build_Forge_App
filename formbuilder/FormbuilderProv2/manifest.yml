@@ -1,0 +1,14 @@
+modules:
+  jira:command:
+    - key: formbuilderprov2-modal-command-with-shortcut
+      title: FormbuilderProv2
+      shortcut: e t
+      target:
+        resource: main
+resources:
+  - key: main
+    path: static/hello-world/build
+app:
+  runtime:
+    name: nodejs20.x
+  id: ari:cloud:ecosystem::app/ff10f537-a9f8-4883-a409-de9ccc5a3325

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lessons Learned: Sci-Fi Form Builder & Atlassian Forge Migration</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; background: #f8f9fa; color: #222; }
+    h1, h2, h3 { color: #2a3b8f; }
+    code, pre { background: #eaeaea; padding: 2px 6px; border-radius: 3px; }
+    section { margin-bottom: 2.5rem; }
+    ul, ol { margin-left: 2rem; }
+    .highlight { background: #ffe0e0; padding: 0.2em 0.5em; border-radius: 3px; }
+    .good { background: #e0ffe0; }
+    .bad { background: #ffe0e0; }
+  </style>
+</head>
+<body>
+  <h1>Lessons Learned: Sci-Fi Form Builder & Atlassian Forge Migration</h1>
+
+  <section>
+    <h2>Executive Summary</h2>
+    <p>Migrating a React app to Atlassian Forge—especially using UI Kit 1 or 2—proved far more difficult and limiting than anticipated. Forge’s security-first, sandboxed environment fundamentally restricts creative freedom, visual differentiation, and even standard React/HTML development patterns. Despite a full migration to UI Kit 2, many frustrations remained, leading to the decision to pursue a Custom UI approach for v3.</p>
+  </section>
+
+  <section>
+    <h2>Key Lessons & Pain Points</h2>
+    <ol>
+      <li><b>Migrating React to Forge is Hard and Risky</b>
+        <ul>
+          <li><span class="bad">Direct migration is not possible:</span> Forge UI Kits are not standard React; they lack HTML elements, DOM access, and custom CSS.</li>
+          <li><span class="bad">UI Kit 1 is deprecated:</span> Using it leads to cryptic errors (“App update required”) and wasted debugging time.</li>
+          <li><span class="bad">UI Kit 2 is only a partial solution:</span> Still highly restrictive, with limited components and no real styling freedom.</li>
+          <li><span class="good">Custom UI is the only way to use real React,</span> but comes with its own complexity (static builds, resource mapping, manifest management).</li>
+        </ul>
+      </li>
+      <li><b>Forge is Difficult and Restrictive</b>
+        <ul>
+          <li><span class="bad">No custom CSS, no HTML elements, no animations:</span> All apps look the same (“design token prison”).</li>
+          <li><span class="bad">Sandboxed execution:</span> No direct API calls from frontend, no external libraries, no DOM manipulation.</li>
+          <li><span class="bad">Complex architecture:</span> Requires resolvers for all backend logic, even for simple storage or API calls.</li>
+          <li><span class="bad">Misleading errors and warnings:</span> Deprecation and build warnings are critical—never ignore them.</li>
+        </ul>
+      </li>
+      <li><b>UI Kit 1 & 2 Migration Wastes Time</b>
+        <ul>
+          <li><span class="bad">Migration is a rewrite, not a refactor:</span> Syntax, imports, and even component logic must change.</li>
+          <li><span class="bad">Mixed codebases are dangerous:</span> Having both UI Kit 1 and 2 in the same repo causes confusion and bugs.</li>
+          <li><span class="bad">File/folder naming matters:</span> Inconsistent organization slows debugging and migration.</li>
+        </ul>
+      </li>
+      <li><b>Forge is Not for Creative or Visually Distinct Apps</b>
+        <ul>
+          <li><span class="bad">No visual differentiation:</span> All Forge apps look corporate and boring.</li>
+          <li><span class="bad">No support for custom themes, branding, or advanced UI/UX.</span></li>
+          <li><span class="good">Browser extensions or standalone React apps</span> are better for creative projects.</li>
+        </ul>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>What Actually Works in Forge</h2>
+    <ul>
+      <li><span class="good">Standard React hooks and state management (in UI Kit 2 and Custom UI).</span></li>
+      <li><span class="good">Basic XCSS styling (padding, margin, borderRadius).</span></li>
+      <li><span class="good">API integration via resolvers.</span></li>
+      <li><span class="good">Storage persistence through Forge APIs.</span></li>
+      <li><span class="good">Templates and standardized patterns for admin/enterprise use cases.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Best Practices for Future Projects</h2>
+    <ol>
+      <li>Treat warnings as errors: Never ignore deprecation or build warnings.</li>
+      <li>Automate checks: Add scripts to block UI Kit 1 imports or deprecated patterns.</li>
+      <li>Document everything: Clearly state which UI Kit or approach each file uses.</li>
+      <li>Standardize structure: Use clear, consistent folder and file naming.</li>
+      <li>Plan for migration: Expect that Atlassian will deprecate features and require rewrites.</li>
+      <li>Use Custom UI for real React: Only Custom UI allows standard React, HTML, and CSS (with more setup).</li>
+      <li>Consider alternatives for creative needs: Browser extensions or standalone apps offer true creative freedom.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Strategic Recommendations</h2>
+    <ul>
+      <li>Use Forge only for secure, functional, admin-focused apps.</li>
+      <li>For creative, visually distinct, or highly interactive apps, use Custom UI, browser extensions, or standalone React.</li>
+      <li>Maintain a knowledge base of migration scripts, code snippets, and lessons learned.</li>
+      <li>Develop and use templates for common Forge app patterns.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>What the New Project Can Learn</h2>
+    <ul>
+      <li>Start with Custom UI if you want real React and CSS.</li>
+      <li>Keep the codebase clean and modular—separate UI, backend, and knowledge base logic.</li>
+      <li>Expect to spend significant time on manifest/resource mapping and static build output for Custom UI.</li>
+      <li>Document all workarounds, limitations, and migration steps for future reference.</li>
+      <li>Don’t chase the “sci-fi theme” dream in Forge UI Kit—focus on functionality and use Custom UI for any real theming.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Final Thoughts</h2>
+    <p>Forge is a powerful but highly restrictive platform. It is best suited for secure, functional, and visually uniform apps. For anything creative, innovative, or visually distinct, Forge will fight you every step of the way. Custom UI is the only viable path for modern React development within Forge, but even then, expect extra setup and ongoing limitations.</p>
+    <p><b>The dream of sci-fi themed Jira interfaces lives on—but not within Forge’s walled garden.</b></p>
+  </section>
+
+</body>
+</html>

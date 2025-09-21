@@ -1,0 +1,42 @@
+modules:
+  jira:issuePanel:
+    - key: formbuilder-panel
+      resource: main
+      resolver:
+        function: resolver
+      title: Form Builder
+      icon: static/icon.svg
+  jira:adminPage:
+    - key: formbuilder-admin
+      resource: main
+      resolver:
+        function: resolver
+      title: Form Builder
+      icon: static/icon.svg
+  jira:projectPage:
+    - key: project-forms
+      resource: project-forms
+      resolver:
+        function: resolver
+      title: Custom Forms
+      icon: static/icon.svg
+  function:
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: static/
+  - key: project-forms
+    path: static/project-forms/
+app:
+  runtime:
+    name: nodejs20.x
+  id: ari:cloud:ecosystem::app/31c7dd11-de8b-457c-8426-262c59cc2626
+permissions:
+  scopes:
+    - storage:app
+    - read:jira-work
+    - write:jira-work
+    - read:field:jira
+    - read:field.option:jira
+    - read:project:jira

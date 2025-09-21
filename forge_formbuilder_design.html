@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sci-Fi Form Builder for Jira (Forge App) — Analysis & Design</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; background: #f8f9fa; color: #222; }
+    h1, h2, h3 { color: #2a3b8f; }
+    code, pre { background: #eaeaea; padding: 2px 6px; border-radius: 3px; }
+    section { margin-bottom: 2.5rem; }
+    ul, ol { margin-left: 2rem; }
+    .schema-table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    .schema-table th, .schema-table td { border: 1px solid #bbb; padding: 6px 10px; }
+    .schema-table th { background: #e0e7ff; }
+    .highlight { background: #e0ffe0; padding: 0.2em 0.5em; border-radius: 3px; }
+  </style>
+</head>
+<body>
+  <h1>Sci-Fi Form Builder for Jira (Forge App)</h1>
+  <h2>Analysis & Design Document</h2>
+
+  <section>
+    <h3>1. Project Overview</h3>
+    <ul>
+      <li><b>Goal:</b> Build a robust, user-friendly Atlassian Forge app for Jira that enables users to create, manage, and reuse custom forms (form templates) for Jira issues. The app should support field management, template saving/loading, and a built-in knowledge base for in-app help, code snippets, and best practices.</li>
+      <li><b>Key Features:</b>
+        <ul>
+          <li>Custom UI (React) for form building and management</li>
+          <li>Multi-module Forge manifest (issue panel, admin page, backend resolvers)</li>
+          <li>Persistent storage of form templates (using Forge Storage API)</li>
+          <li>Integration with Jira fields and REST API</li>
+          <li>Embedded knowledge base (SQLite or similar) for documentation, code, and prompts</li>
+          <li>Theming and extensibility for future enhancements</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>2. Functional Requirements</h3>
+    <ol>
+      <li><b>Form Builder</b>
+        <ul>
+          <li>Add, remove, and reorder Jira fields and custom fields</li>
+          <li>Drag-and-drop UI for field arrangement</li>
+          <li>Input for form template name</li>
+          <li>Save, list, and load form templates (with validation)</li>
+          <li>Prevent duplicate template names and empty forms</li>
+        </ul>
+      </li>
+      <li><b>Knowledge Base</b>
+        <ul>
+          <li>Store and retrieve documentation, code snippets, and best practices</li>
+          <li>In-app search and contextual help</li>
+          <li>Scripts to sync and update knowledge base from external sources (e.g., Atlassian docs)</li>
+          <li>Knowledge base accessible from both UI and backend (for agent features)</li>
+        </ul>
+      </li>
+      <li><b>Jira Integration</b>
+        <ul>
+          <li>Discover available Jira fields via REST API</li>
+          <li>Attach forms to Jira issues (issue panel module)</li>
+          <li>Admin page for managing templates and knowledge base</li>
+        </ul>
+      </li>
+      <li><b>UX & Feedback</b>
+        <ul>
+          <li>Success/error messages for save/load actions</li>
+          <li>Prevent invalid actions (e.g., saving empty forms)</li>
+          <li>Responsive, modern UI with theming support</li>
+        </ul>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h3>3. Non-Functional Requirements</h3>
+    <ul>
+      <li>Clean, maintainable codebase (React, TypeScript preferred)</li>
+      <li>Modular structure: separate UI, backend, and knowledge base logic</li>
+      <li>Secure storage and API usage (Forge best practices)</li>
+      <li>Efficient, scalable knowledge base queries</li>
+      <li>Easy deployment and upgrade via Forge CLI</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>4. Architecture & Project Structure</h3>
+    <pre><code>/formbuilder/
+  /components/         # React components (FormBuilder, FieldSelector, etc.)
+  /resolvers/          # Forge backend resolvers (API, storage, knowledge base)
+  /static/             # Custom UI build output (served by Forge)
+  /knowledge_base/     # Scripts and DB for knowledge base
+  manifest.yml         # Forge multi-module manifest
+  package.json         # Project dependencies and scripts
+  README.md            # Project documentation
+</code></pre>
+    <ul>
+      <li><b>Forge Manifest (manifest.yml):</b> Multi-module: issue panel, admin page, resolver, static resources</li>
+      <li><b>Custom UI (React):</b> Main entry: <code>FormBuilder.jsx</code> (or <code>.tsx</code>); field management, template controls, and knowledge base UI</li>
+      <li><b>Backend Resolvers:</b> Handle storage (form templates), Jira API calls, and knowledge base queries</li>
+      <li><b>Knowledge Base:</b> SQLite DB (or similar), scripts to sync/update, API for querying from UI and backend</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>5. Knowledge Base Design</h3>
+    <ul>
+      <li><b>Schema:</b></li>
+    </ul>
+    <table class="schema-table">
+      <tr><th>Table</th><th>Fields</th></tr>
+      <tr><td>documents</td><td>id, title, content, tags, type (doc, code, prompt), source, updated_at</td></tr>
+      <tr><td>snippets</td><td>id, title, code, language, tags, source, updated_at</td></tr>
+      <tr><td>prompts</td><td>id, title, prompt_text, tags, use_case, updated_at</td></tr>
+    </table>
+    <ul>
+      <li><b>Scripts:</b>
+        <ul>
+          <li><code>update_knowledge_base.py</code>: Syncs docs/snippets from external sources</li>
+          <li><code>insert_docs.py</code>: Parses and inserts documentation into DB</li>
+          <li><code>insert_code_snippets.py</code>: Parses and inserts code examples</li>
+        </ul>
+      </li>
+      <li><b>Usage:</b>
+        <ul>
+          <li>UI: Search and display docs/snippets/prompts contextually</li>
+          <li>Backend: Use for agent features (e.g., code generation, best practices)</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>6. Best Practices & Recommendations</h3>
+    <ul>
+      <li>Use TypeScript for type safety in both UI and backend</li>
+      <li>Follow Atlassian Forge security and performance guidelines</li>
+      <li>Modularize code for maintainability and testability</li>
+      <li>Document all scripts and DB schema for future contributors</li>
+      <li>Provide clear error handling and user feedback in UI</li>
+      <li>Make knowledge base extensible for future AI/agent features</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>7. Example User Stories</h3>
+    <ul>
+      <li>As a Jira user, I can create a new form template by selecting and arranging fields, naming the template, and saving it for reuse.</li>
+      <li>As an admin, I can manage all form templates and update the knowledge base from the admin page.</li>
+      <li>As a user, I can search the knowledge base for help or code snippets while building a form.</li>
+      <li>As a developer, I can update the knowledge base scripts to sync new documentation or code examples.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>8. Deliverables</h3>
+    <ul>
+      <li>Complete Forge app with multi-module manifest</li>
+      <li>React-based Custom UI for form builder and admin</li>
+      <li>Backend resolvers for storage, Jira API, and knowledge base</li>
+      <li>Knowledge base scripts and populated DB</li>
+      <li>Documentation (README, usage, contribution guide)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>9. References</h3>
+    <ul>
+      <li><a href="https://developer.atlassian.com/platform/forge/" target="_blank">Atlassian Forge Documentation</a></li>
+      <li><a href="https://developer.atlassian.com/cloud/jira/platform/rest/v3/intro/" target="_blank">Jira REST API Reference</a></li>
+      <li><a href="https://react.dev/" target="_blank">React Documentation</a></li>
+      <li><a href="https://www.sqlite.org/docs.html" target="_blank">SQLite Documentation</a></li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>10. Next Steps</h3>
+    <ol>
+      <li>Scaffold new Forge app with Custom UI and multi-module manifest</li>
+      <li>Set up project structure as described</li>
+      <li>Migrate and document knowledge base scripts and DB</li>
+      <li>Implement core form builder and knowledge base features</li>
+      <li>Test, document, and deploy</li>
+    </ol>
+  </section>
+
+</body>
+</html>

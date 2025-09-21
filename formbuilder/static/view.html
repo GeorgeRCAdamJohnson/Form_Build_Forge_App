@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>View Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .form-field { margin: 15px 0; }
+        .form-field label { display: block; font-weight: bold; margin-bottom: 5px; }
+        .form-field input, .form-field select, .form-field textarea { 
+            width: 100%; padding: 8px; max-width: 400px; 
+        }
+    </style>
+</head>
+<body>
+    <h1>View Form</h1>
+    <p>Preview how your form template will look to users.</p>
+    
+    <form>
+        <div class="form-field">
+            <label>Summary</label>
+            <input type="text" placeholder="Enter issue summary">
+        </div>
+        
+        <div class="form-field">
+            <label>Description</label>
+            <textarea rows="4" placeholder="Enter issue description"></textarea>
+        </div>
+        
+        <div class="form-field">
+            <label>Priority</label>
+            <select>
+                <option>High</option>
+                <option>Medium</option>
+                <option>Low</option>
+            </select>
+        </div>
+        
+        <button type="button" style="padding: 10px 20px; background: #007acc; color: white; border: none;">
+            Create Issue
+        </button>
+    </form>
+</body>
+</html>
