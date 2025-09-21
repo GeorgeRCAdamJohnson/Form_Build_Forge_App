@@ -1,0 +1,254 @@
+/* Barbie Dream Theme */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@300;400;600;700&display=swap');
+
+.theme-barbie {
+  --primary: #ff1493;
+  --secondary: #ff69b4;
+  --accent: #ffc0cb;
+  --warning: #ff6347;
+  --danger: #dc143c;
+  --background: linear-gradient(135deg, #ff69b4 0%, #ff1493 50%, #c71585 100%);
+  --card-bg: rgba(255, 192, 203, 0.9);
+  --border-glow: rgba(255, 20, 147, 0.4);
+  --text: #ffffff;
+  --primary-font: 'Poppins', sans-serif;
+  --heading-font: 'Fredoka One', cursive;
+}
+
+.theme-barbie body {
+  background: var(--background);
+  color: var(--text);
+  font-family: var(--primary-font);
+}
+
+.theme-barbie .form-container {
+  background: radial-gradient(circle at 20% 50%, rgba(255, 20, 147, 0.2) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(255, 105, 180, 0.2) 0%, transparent 50%);
+}
+
+.theme-barbie .form-input, 
+.theme-barbie .form-select {
+  background: var(--card-bg);
+  border: 2px solid var(--border-glow);
+  color: #333;
+  font-weight: 600;
+  box-shadow: 0 0 15px rgba(255, 20, 147, 0.3);
+}
+
+.theme-barbie .form-input:focus, 
+.theme-barbie .form-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 25px rgba(255, 20, 147, 0.6), inset 0 0 10px rgba(255, 20, 147, 0.2);
+}
+
+.theme-barbie .field-list {
+  border: 2px solid var(--border-glow);
+  background: var(--card-bg);
+  box-shadow: 0 8px 32px rgba(255, 20, 147, 0.3);
+}
+
+.theme-barbie .field-item {
+  background: linear-gradient(135deg, rgba(255, 20, 147, 0.2) 0%, rgba(255, 105, 180, 0.2) 100%);
+  border: 1px solid rgba(255, 20, 147, 0.4);
+  color: #333;
+  font-weight: 600;
+}
+
+.theme-barbie .field-item:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 20px rgba(255, 20, 147, 0.5);
+  transform: translateY(-3px) scale(1.03);
+}
+
+.theme-barbie .selected-field {
+  border: 2px solid var(--secondary);
+  background: linear-gradient(135deg, rgba(255, 105, 180, 0.2) 0%, rgba(255, 192, 203, 0.2) 100%);
+  box-shadow: 0 0 25px rgba(255, 105, 180, 0.4);
+}
+
+.theme-barbie .field-label {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.theme-barbie .field-input {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 20, 147, 0.4);
+  color: #333;
+  font-weight: 600;
+}
+
+.theme-barbie .field-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 15px rgba(255, 20, 147, 0.4);
+}
+
+.theme-barbie .btn-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white;
+  box-shadow: 0 0 20px rgba(255, 20, 147, 0.5);
+  text-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+.theme-barbie .btn-primary:hover {
+  box-shadow: 0 0 30px rgba(255, 20, 147, 0.7);
+  transform: translateY(-3px) scale(1.05);
+}
+
+.theme-barbie .btn-danger {
+  background: linear-gradient(135deg, var(--danger) 0%, var(--warning) 100%);
+  box-shadow: 0 0 20px rgba(220, 20, 60, 0.5);
+}
+
+.theme-barbie .btn-save {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+  color: #333;
+  font-family: var(--heading-font);
+  box-shadow: 0 0 25px rgba(255, 192, 203, 0.5);
+  animation: barbie-pulse 2s infinite;
+}
+
+@keyframes barbie-pulse {
+  0% { box-shadow: 0 0 25px rgba(255, 192, 203, 0.5); }
+  50% { box-shadow: 0 0 35px rgba(255, 192, 203, 0.8); }
+  100% { box-shadow: 0 0 25px rgba(255, 192, 203, 0.5); }
+}
+
+.theme-barbie .admin-header {
+  background: linear-gradient(135deg, rgba(255, 20, 147, 0.2) 0%, rgba(255, 105, 180, 0.2) 100%);
+  border-bottom: 2px solid var(--border-glow);
+  box-shadow: 0 4px 20px rgba(255, 20, 147, 0.3);
+}
+
+.theme-barbie .tab-active {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white;
+  border-color: var(--primary);
+  box-shadow: 0 0 25px rgba(255, 20, 147, 0.6);
+  text-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+.theme-barbie .tab-inactive {
+  background: rgba(255, 255, 255, 0.3);
+  color: var(--primary);
+  border-color: rgba(255, 20, 147, 0.4);
+  font-weight: 700;
+}
+
+.theme-barbie .tab-inactive:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 20px rgba(255, 20, 147, 0.4);
+}
+
+.theme-barbie .version-display {
+  color: var(--accent);
+  font-family: var(--heading-font);
+  text-shadow: 0 0 10px rgba(255, 192, 203, 0.6);
+}
+
+.theme-barbie .form-preview {
+  border: 2px solid var(--secondary);
+  background: linear-gradient(135deg, rgba(255, 192, 203, 0.95) 0%, rgba(255, 105, 180, 0.95) 100%);
+  box-shadow: 0 20px 40px rgba(255, 20, 147, 0.4), 0 0 30px rgba(255, 105, 180, 0.3);
+}
+
+.theme-barbie .form-preview::before {
+  background: radial-gradient(circle, rgba(255, 20, 147, 0.2) 0%, transparent 70%);
+  animation: barbie-rotate 15s linear infinite;
+}
+
+@keyframes barbie-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.theme-barbie .form-title h2 {
+  color: var(--primary);
+  font-family: var(--heading-font);
+  text-shadow: 0 0 20px rgba(255, 20, 147, 0.6);
+}
+
+.theme-barbie .form-subtitle {
+  color: var(--secondary);
+  text-shadow: 0 0 10px rgba(255, 105, 180, 0.4);
+}
+
+.theme-barbie .form-field-label {
+  color: var(--primary);
+  font-family: var(--heading-font);
+  text-shadow: 0 0 10px rgba(255, 20, 147, 0.4);
+}
+
+.theme-barbie .form-field-help {
+  color: var(--warning);
+  text-shadow: 0 0 5px rgba(255, 99, 71, 0.4);
+}
+
+.theme-barbie .form-field-input {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid var(--border-glow);
+  color: #333;
+  font-weight: 600;
+}
+
+.theme-barbie .form-field-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 25px rgba(255, 20, 147, 0.5);
+}
+
+.theme-barbie .btn-create {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+  color: #333;
+  font-family: var(--heading-font);
+  box-shadow: 0 0 25px rgba(255, 192, 203, 0.5);
+  text-shadow: none;
+}
+
+.theme-barbie .btn-cancel {
+  background: transparent;
+  color: var(--warning);
+  border: 2px solid var(--warning);
+  font-family: var(--heading-font);
+}
+
+.theme-barbie .btn-cancel:hover {
+  background: rgba(255, 99, 71, 0.2);
+  box-shadow: 0 0 20px rgba(255, 99, 71, 0.4);
+}
+
+.theme-barbie .drag-handle {
+  color: var(--primary);
+  background: rgba(255, 20, 147, 0.2);
+  border: 1px solid rgba(255, 20, 147, 0.4);
+}
+
+.theme-barbie .drag-handle:hover {
+  color: var(--accent);
+  background: rgba(255, 192, 203, 0.3);
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(255, 192, 203, 0.4);
+}
+
+.theme-barbie .selected-fields-container {
+  border: 2px dashed var(--border-glow);
+  background: linear-gradient(135deg, rgba(255, 20, 147, 0.1) 0%, rgba(255, 105, 180, 0.1) 100%);
+}
+
+.theme-barbie .empty-fields-message {
+  color: var(--secondary);
+  font-family: var(--heading-font);
+  text-shadow: 0 0 15px rgba(255, 105, 180, 0.4);
+}
+
+.theme-barbie h1, 
+.theme-barbie h2, 
+.theme-barbie h3 {
+  font-family: var(--heading-font);
+  color: var(--primary);
+  text-shadow: 0 0 20px rgba(255, 20, 147, 0.6);
+}
+
+.theme-barbie ::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  box-shadow: 0 0 15px rgba(255, 20, 147, 0.4);
+}

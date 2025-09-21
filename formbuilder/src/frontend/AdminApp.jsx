@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import FormBuilder from './FormBuilder';
 import { invokeResolver } from './api';
+import { ThemeProvider, useTheme } from './ThemeProvider';
+import ThemeSelector from './ThemeSelector';
 
-const AdminApp = () => {
+const AdminAppContent = () => {
   const [activeTab, setActiveTab] = useState('builder');
+  const { theme, currentTheme } = useTheme();
+
+  // Apply theme to body
+  useEffect(() => {
+    document.body.className = `theme-${currentTheme}`;
+    document.body.style.background = theme.colors.background;
+    document.body.style.color = theme.colors.text;
+    document.body.style.fontFamily = theme.fonts.primary;
+  }, [theme, currentTheme]);
 
   const renderContent = () => {
     switch(activeTab) {
@@ -22,64 +33,36 @@ const AdminApp = () => {
 
   return (
     <div>
-      <div style={{ borderBottom: '1px solid #ccc', padding: '10px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <ThemeSelector />
+      <div className="admin-header">
         <div>
         <button 
           onClick={() => setActiveTab('builder')}
-          style={{ 
-            padding: '8px 16px', 
-            margin: '0 5px',
-            backgroundColor: activeTab === 'builder' ? '#007acc' : '#f0f0f0',
-            color: activeTab === 'builder' ? 'white' : 'black',
-            border: 'none',
-            cursor: 'pointer'
-          }}
+          className={activeTab === 'builder' ? 'tab-button tab-active' : 'tab-button tab-inactive'}
         >
-          Form Builder
+          🛠️ NEURAL BUILDER
         </button>
         <button 
           onClick={() => setActiveTab('browse')}
-          style={{ 
-            padding: '8px 16px', 
-            margin: '0 5px',
-            backgroundColor: activeTab === 'browse' ? '#007acc' : '#f0f0f0',
-            color: activeTab === 'browse' ? 'white' : 'black',
-            border: 'none',
-            cursor: 'pointer'
-          }}
+          className={activeTab === 'browse' ? 'tab-button tab-active' : 'tab-button tab-inactive'}
         >
-          Browse Templates
+          📊 TEMPLATE MATRIX
         </button>
         <button 
           onClick={() => setActiveTab('view')}
-          style={{ 
-            padding: '8px 16px', 
-            margin: '0 5px',
-            backgroundColor: activeTab === 'view' ? '#007acc' : '#f0f0f0',
-            color: activeTab === 'view' ? 'white' : 'black',
-            border: 'none',
-            cursor: 'pointer'
-          }}
+          className={activeTab === 'view' ? 'tab-button tab-active' : 'tab-button tab-inactive'}
         >
-          View Form
+          👁️ PREVIEW MODE
         </button>
-
         <button 
           onClick={() => setActiveTab('readme')}
-          style={{ 
-            padding: '8px 16px', 
-            margin: '0 5px',
-            backgroundColor: activeTab === 'readme' ? '#007acc' : '#f0f0f0',
-            color: activeTab === 'readme' ? 'white' : 'black',
-            border: 'none',
-            cursor: 'pointer'
-          }}
+          className={activeTab === 'readme' ? 'tab-button tab-active' : 'tab-button tab-inactive'}
         >
-          README
+          📖 SYSTEM INFO
         </button>
         </div>
-        <div style={{ color: '#666', fontSize: '12px' }}>
-          v1.0.0
+        <div className="version-display">
+          [ v2.0.QUANTUM ]
         </div>
       </div>
       {renderContent()}
@@ -351,5 +334,13 @@ const ReadMe = () => (
     </ul>
   </div>
 );
+
+const AdminApp = () => {
+  return (
+    <ThemeProvider>
+      <AdminAppContent />
+    </ThemeProvider>
+  );
+};
 
 export default AdminApp;

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { invokeResolver } from './api';
+import { useTheme } from './ThemeProvider';
 
 const ProjectForms = () => {
+  const { theme, currentTheme } = useTheme();
   const [templates, setTemplates] = useState([]);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [formData, setFormData] = useState({});
@@ -177,23 +179,15 @@ const ProjectForms = () => {
   };
 
   const renderField = (field) => {
-    const fieldStyle = {
-      width: '100%', 
-      padding: '10px', 
-      border: '2px solid #ddd',
-      borderRadius: '4px',
-      fontSize: '14px'
-    };
-    
     switch (field.type) {
       case 'string':
         return (
           <input 
             type="text" 
-            placeholder={`Enter ${field.friendlyName.toLowerCase()}`}
+            placeholder={`🔋 ${field.friendlyName.toLowerCase()}`}
             value={formData[field.jiraId] || ''}
             onChange={(e) => handleFieldChange(field.jiraId, e.target.value)}
-            style={fieldStyle} 
+            className="form-field-input"
           />
         );
       case 'user':
@@ -201,10 +195,10 @@ const ProjectForms = () => {
           <select 
             value={formData[field.jiraId] || ''}
             onChange={(e) => handleFieldChange(field.jiraId, e.target.value)}
-            style={fieldStyle}
+            className="form-field-input"
           >
-            <option value="">Select user...</option>
-            <option value="currentUser">Assign to me</option>
+            <option value="">👤 Select neural operator...</option>
+            <option value="currentUser">🤖 Assign to me</option>
           </select>
         );
       case 'priority':
@@ -212,22 +206,22 @@ const ProjectForms = () => {
           <select 
             value={formData[field.jiraId] || ''}
             onChange={(e) => handleFieldChange(field.jiraId, e.target.value)}
-            style={fieldStyle}
+            className="form-field-input"
           >
-            <option value="">Select priority...</option>
-            <option value="1">🔴 High</option>
-            <option value="2">🟡 Medium</option>
-            <option value="3">🟢 Low</option>
+            <option value="">⚡ Select priority level...</option>
+            <option value="1">🔴 CRITICAL</option>
+            <option value="2">🟡 STANDARD</option>
+            <option value="3">🟢 LOW</option>
           </select>
         );
       default:
         return (
           <input 
             type="text" 
-            placeholder={`Enter ${field.friendlyName.toLowerCase()}`}
+            placeholder={`🔋 ${field.friendlyName.toLowerCase()}`}
             value={formData[field.jiraId] || ''}
             onChange={(e) => handleFieldChange(field.jiraId, e.target.value)}
-            style={fieldStyle} 
+            className="form-field-input"
           />
         );
     }
@@ -237,11 +231,32 @@ const ProjectForms = () => {
 
   return (
     <div className="form-container">
-      <h1>Create Issue - {currentProject?.name || 'Project'}</h1>
+      <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+        <h1 style={{ 
+          fontSize: '32px', 
+          color: currentTheme === 'barbie' ? '#4b0082' : theme.colors.primary,
+          fontFamily: theme.fonts.heading,
+          textShadow: currentTheme === 'barbie' 
+            ? '0 0 20px rgba(75, 0, 130, 0.6), 0 2px 4px rgba(0,0,0,0.3)' 
+            : '0 0 20px rgba(0, 255, 255, 0.5)'
+        }}>
+          {currentTheme === 'barbie' ? '💖 BARBIE ISSUE CREATOR' : '⚡ QUANTUM ISSUE GENERATOR'}
+        </h1>
+        <div style={{ 
+          color: currentTheme === 'barbie' ? '#8b008b' : theme.colors.secondary, 
+          fontSize: '16px', 
+          fontFamily: theme.fonts.heading,
+          textShadow: currentTheme === 'barbie' 
+            ? '0 0 10px rgba(139, 0, 139, 0.5)' 
+            : '0 0 10px rgba(255, 0, 255, 0.3)'
+        }}>
+          [ PROJECT: {currentProject?.name || 'UNKNOWN'} ]
+        </div>
+      </div>
       
-      <div style={{ marginBottom: '20px' }}>
-        <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
-          Select Form Template:
+      <div style={{ marginBottom: '30px' }}>
+        <label className="field-label" style={{ display: 'block', marginBottom: '10px' }}>
+          {currentTheme === 'barbie' ? '💖 Select Dream Template:' : '📊 Select Neural Template:'}
         </label>
         <select 
           value={selectedTemplate?.id || ''}
@@ -250,9 +265,10 @@ const ProjectForms = () => {
             setSelectedTemplate(template);
             setFormData({});
           }}
-          style={{ padding: '8px', width: '300px' }}
+          className="form-select"
+          style={{ width: '400px' }}
         >
-          <option value="">Choose a template...</option>
+          <option value="">{currentTheme === 'barbie' ? '💖 Choose your dream template...' : '🔍 Initialize template matrix...'}</option>
           {templates.map(template => (
             <option key={template.id} value={template.id}>{template.name}</option>
           ))}
@@ -262,8 +278,8 @@ const ProjectForms = () => {
       {selectedTemplate && (
         <div className="form-preview">
           <div className="form-title">
-            <h2>Create Issue</h2>
-            <p className="form-subtitle">Using template: {selectedTemplate.name}</p>
+            <h2>{currentTheme === 'barbie' ? '💖 BARBIE DREAM MATRIX' : '⚡ QUANTUM ISSUE MATRIX'}</h2>
+            <p className="form-subtitle">{currentTheme === 'barbie' ? '💖' : '🔋'} Template: {selectedTemplate.name}</p>
           </div>
           
           <form onSubmit={(e) => { e.preventDefault(); createIssue(); }}>
@@ -272,17 +288,17 @@ const ProjectForms = () => {
               .map(field => (
               <div key={field.id} className="form-field">
                 <label className="form-field-label">
-                  {field.friendlyName || field.name}
-                  {(field.required || field.name === 'summary') && <span style={{ color: 'red' }}> *</span>}
+                  🔹 {field.friendlyName || field.name}
+                  {(field.required || field.name === 'summary') && <span style={{ color: '#ff0040' }}> ⚠</span>}
                   {field.conditionalField && (
-                    <span style={{ color: '#666', fontSize: '12px', fontStyle: 'italic' }}>
-                      {' '}(conditional)
+                    <span style={{ color: '#ff6600', fontSize: '12px', fontStyle: 'italic' }}>
+                      {' '}[CONDITIONAL]
                     </span>
                   )}
                 </label>
                 {field.helpText && (
                   <p className="form-field-help">
-                    💡 {field.helpText}
+                    📊 {field.helpText}
                   </p>
                 )}
                 {renderField(field)}
@@ -291,7 +307,7 @@ const ProjectForms = () => {
             
             <div className="form-actions">
               <button type="submit" className="btn-create">
-                ✓ Create Issue
+                {currentTheme === 'barbie' ? '💖 CREATE DREAM ISSUE' : '🚀 DEPLOY ISSUE'}
               </button>
               <button 
                 type="button" 
@@ -301,7 +317,7 @@ const ProjectForms = () => {
                   setFormData({});
                 }}
               >
-                Cancel
+                {currentTheme === 'barbie' ? '💖 CANCEL' : '❌ ABORT'}
               </button>
             </div>
           </form>

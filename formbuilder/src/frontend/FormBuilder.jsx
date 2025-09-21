@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { invokeResolver } from './api';
+import { useTheme } from './ThemeProvider';
 import {
   DndContext,
   closestCenter,
@@ -192,6 +193,7 @@ const SortableField = ({ field, updateFieldProperty, removeField, selectedFields
 };
 
 const FormBuilder = () => {
+  const { theme, currentTheme } = useTheme();
   const [selectedFields, setSelectedFields] = useState([]);
   const [templateName, setTemplateName] = useState('');
   const [selectedProject, setSelectedProject] = useState('');
@@ -337,21 +339,44 @@ const FormBuilder = () => {
   if (loading) return <div style={{ padding: '20px' }}>Loading Jira fields...</div>;
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>Form Builder</h1>
+    <div className="form-container">
+      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+        <h1 style={{ 
+          fontSize: '36px', 
+          color: currentTheme === 'barbie' ? '#4b0082' : theme.colors.primary,
+          marginBottom: '10px',
+          fontFamily: theme.fonts.heading,
+          textShadow: currentTheme === 'barbie' 
+            ? '0 0 20px rgba(75, 0, 130, 0.6), 0 2px 4px rgba(0,0,0,0.3)' 
+            : '0 0 20px rgba(0, 255, 255, 0.5)'
+        }}>
+          {currentTheme === 'barbie' ? '💖 BARBIE FORM STUDIO' : '🚀 QUANTUM FORM BUILDER'}
+        </h1>
+        <div style={{ 
+          color: currentTheme === 'barbie' ? '#8b008b' : theme.colors.accent, 
+          fontSize: '14px', 
+          fontFamily: theme.fonts.heading,
+          letterSpacing: '2px',
+          textShadow: currentTheme === 'barbie' 
+            ? '0 0 10px rgba(139, 0, 139, 0.5)' 
+            : '0 0 10px rgba(57, 255, 20, 0.5)'
+        }}>
+          {currentTheme === 'barbie' ? '[ DREAM INTERFACE v2.0 ]' : '[ NEURAL INTERFACE v2.0 ]'}
+        </div>
+      </div>
       
-      <div style={{ marginBottom: '20px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}>
+      <div className="form-header">
         <input 
           type="text" 
-          placeholder="Template Name"
+          placeholder={currentTheme === 'barbie' ? '💖 Template Name' : '📝 Template Name'}
           value={templateName}
           onChange={(e) => setTemplateName(e.target.value)}
-          style={{ padding: '8px' }}
+          className="form-input"
         />
         <select 
           value={selectedProject}
           onChange={(e) => setSelectedProject(e.target.value)}
-          style={{ padding: '8px' }}
+          className="form-select"
         >
           <option value="">Select Project...</option>
           {projects.map(project => (
@@ -361,7 +386,7 @@ const FormBuilder = () => {
         {savedTemplates.length > 0 && (
           <select 
             onChange={(e) => e.target.value && loadTemplate(savedTemplates[e.target.value])}
-            style={{ padding: '8px' }}
+            className="form-select"
           >
             <option value="">Load Template...</option>
             {savedTemplates.map((template, index) => (
@@ -371,35 +396,35 @@ const FormBuilder = () => {
         )}
       </div>
 
-      <div style={{ display: 'flex', gap: '20px' }}>
-        <div style={{ flex: 1 }}>
-          <h3>Available Jira Fields ({availableFields.length}):</h3>
+      <div className="form-layout">
+        <div className="form-column">
+          <h3>{currentTheme === 'barbie' ? '💖 Available Dream Fields' : '🔍 Available Neural Fields'} ({availableFields.length})</h3>
           <input 
             type="text" 
-            placeholder="Search fields..."
+            placeholder={currentTheme === 'barbie' ? '💖 Search dream fields...' : '🔍 Search quantum fields...'}
             value={fieldSearch}
             onChange={(e) => setFieldSearch(e.target.value)}
-            style={{ width: '100%', padding: '8px', marginBottom: '10px' }}
+            className="form-input"
+            style={{ width: '100%', marginBottom: '15px' }}
           />
-          <div style={{ maxHeight: '400px', overflowY: 'auto', border: '1px solid #ccc', padding: '10px' }}>
+          <div className="field-list">
             {availableFields.map(field => (
-              <div key={field.id} style={{ 
-                padding: '8px', 
-                border: '1px solid #eee', 
-                margin: '5px 0',
-                cursor: 'pointer',
-                backgroundColor: '#f9f9f9'
-              }} onClick={() => addField(field)}>
-                <strong>{field.name}</strong>
-                <br />
-                <small>{field.schema?.type || 'unknown'}</small>
+              <div key={field.id} className="field-item" onClick={() => addField(field)}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div>
+                    <strong>🔹 {field.name}</strong>
+                    <br />
+                    <small style={{ color: '#ff6600' }}>{field.schema?.type || 'quantum'}</small>
+                  </div>
+                  <div style={{ color: '#39ff14', fontSize: '12px' }}>➕</div>
+                </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div style={{ flex: 1 }}>
-          <h3>Selected Fields:</h3>
+        <div className="form-column">
+          <h3>{currentTheme === 'barbie' ? '💖 Dream Form Collection' : '⚙️ Active Form Matrix'}</h3>
           <DndContext 
             sensors={sensors}
             collisionDetection={closestCenter}
@@ -443,18 +468,10 @@ const FormBuilder = () => {
 
       <button 
         onClick={saveTemplate}
-        style={{ 
-          marginTop: '20px', 
-          padding: '10px 20px', 
-          backgroundColor: '#007acc', 
-          color: 'white', 
-          border: 'none',
-          cursor: 'pointer',
-          opacity: (!templateName || selectedFields.length === 0) ? 0.5 : 1
-        }}
+        className="btn-save"
         disabled={!templateName || selectedFields.length === 0 || !selectedProject}
       >
-        Save Template
+        {currentTheme === 'barbie' ? '💖 SAVE DREAM TEMPLATE' : '🚀 DEPLOY TEMPLATE'}
       </button>
     </div>
   );
