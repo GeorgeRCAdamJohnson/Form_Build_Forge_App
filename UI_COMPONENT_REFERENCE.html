@@ -5,11 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Builder UI Component Reference</title>
     <style>
+        /* Import theme fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Fredoka+One&family=Poppins:wght@300;400;600;700&display=swap');
+        
+        /* Default body styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
             background: #f5f5f5;
+            transition: all 0.3s ease;
+        }
+        
+        /* Theme Variables */
+        .theme-modern {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --primary-font: 'Inter', sans-serif;
+        }
+        
+        .theme-scifi {
+            --neon-cyan: #00ffff;
+            --neon-purple: #ff00ff;
+            --neon-green: #39ff14;
+            --background: linear-gradient(135deg, #0a0a0f 0%, #1a0a2e 50%, #16213e 100%);
+            --text: #ffffff;
+            --text-muted: #cccccc;
+            --primary-font: 'Exo 2', sans-serif;
+        }
+        
+        .theme-barbie {
+            --primary: #ff1493;
+            --secondary: #ff69b4;
+            --accent: #ffc0cb;
+            --background: linear-gradient(135deg, #ff69b4 0%, #ff1493 50%, #c71585 100%);
+            --text: #ffffff;
+            --text-muted: #ffccdd;
+            --primary-font: 'Poppins', sans-serif;
+        }
+        
+        /* Apply theme to body */
+        body.theme-modern {
+            background: var(--background);
+            color: var(--text);
+            font-family: var(--primary-font);
+        }
+        
+        body.theme-scifi {
+            background: var(--background);
+            color: var(--text);
+            font-family: var(--primary-font);
+        }
+        
+        body.theme-barbie {
+            background: var(--background);
+            color: var(--text);
+            font-family: var(--primary-font);
         }
         .container {
             max-width: 1200px;
@@ -79,11 +134,68 @@
             font-family: monospace;
             font-size: 12px;
         }
+        
+        /* Theme Selector */
+        .theme-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
+        
+        .theme-btn {
+            padding: 8px 12px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        .theme-btn.active {
+            border-color: #6366f1;
+            background: #6366f1;
+            color: white;
+        }
+        
+        .theme-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Theme-specific container styles */
+        .theme-modern .container {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        
+        .theme-scifi .container {
+            background: rgba(15, 15, 25, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+        
+        .theme-barbie .container {
+            background: rgba(255, 192, 203, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 20, 147, 0.3);
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🚀 Form Builder UI Component Reference</h1>
+    <!-- ADMIN FORM BUILDER PAGE -->
+    <div id="adminPage" class="page-content">
+        <div class="container">
+            <h1>🚀 Admin Form Builder UI Component Reference</h1>
         <p>This reference guide maps all UI elements in the Form Builder to their corresponding CSS classes and React components for easy debugging and modification.</p>
         
         <div class="theme-note">
@@ -625,6 +737,650 @@
                 </div>
             </div>
         </div>
+
+        <!-- NAVIGATION -->
+        <div style="text-align: center; margin: 40px 0; padding: 20px; background: #f0f0f0; border-radius: 8px;">
+            <h2>📖 UI Reference Pages</h2>
+            <div style="display: flex; gap: 20px; justify-content: center; margin-top: 20px;">
+                <button onclick="showPage('admin')" id="adminBtn" class="page-btn active-page">🔧 Admin Form Builder</button>
+                <button onclick="showPage('project')" id="projectBtn" class="page-btn">⚙️ Project Settings</button>
+            </div>
+        </div>
     </div>
+
+    <!-- PROJECT SETTINGS PAGE -->
+    <div id="projectPage" class="page-content" style="display: none;">
+        <div class="container">
+            <h1>⚙️ Project Settings UI Component Reference</h1>
+            <p>This reference guide maps all UI elements in the Project Settings page (Custom Forms) to their corresponding CSS classes and React components.</p>
+            
+            <div class="theme-note">
+                <strong>Theme System:</strong> Project Settings supports the same three themes as the Admin interface with consistent styling.
+            </div>
+
+            <!-- PROJECT HEADER SECTION -->
+            <div class="section">
+                <div class="section-title">🏢 Project Header Section</div>
+                
+                <div class="component">
+                    <div class="component-name">Project Title</div>
+                    <div class="component-class">.project-title</div>
+                    <div class="component-description">
+                        Main page title that changes based on theme:
+                        <br>• Modern: "✨ ISSUE CREATOR"
+                        <br>• Sci-Fi: "⚡ QUANTUM ISSUE GENERATOR"
+                        <br>• Barbie: "💖 BARBIE ISSUE CREATOR"
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~200</div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">Project Subtitle</div>
+                    <div class="component-class">.project-subtitle</div>
+                    <div class="component-description">
+                        Shows current project context: "[ PROJECT: {projectName} ]"
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~205</div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">Project Header Container</div>
+                    <div class="component-class">.project-header</div>
+                    <div class="component-description">
+                        Container for the project title and subtitle section
+                    </div>
+                    <div class="component-location">File: styles.css (added for CSP compliance)</div>
+                </div>
+            </div>
+
+            <!-- TEMPLATE SELECTION SECTION -->
+            <div class="section">
+                <div class="section-title">📋 Template Selection Section</div>
+                
+                <div class="component">
+                    <div class="component-name">Template Selector Label</div>
+                    <div class="component-class">.field-label</div>
+                    <div class="component-description">
+                        Label for template dropdown that changes based on theme:
+                        <br>• Modern: "📊 Select Template:"
+                        <br>• Sci-Fi: "📊 Select Neural Template:"
+                        <br>• Barbie: "💖 Select Dream Template:"
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~210</div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">Template Dropdown</div>
+                    <div class="component-class">.form-select</div>
+                    <div class="component-description">
+                        Dropdown showing available form templates for the current project.
+                        Placeholder text changes based on theme:
+                        <br>• Modern: "📊 Choose a template..."
+                        <br>• Sci-Fi: "🔍 Initialize template matrix..."
+                        <br>• Barbie: "💖 Choose your dream template..."
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~215</div>
+                </div>
+            </div>
+
+            <!-- FORM PREVIEW SECTION -->
+            <div class="section">
+                <div class="section-title">📝 Dynamic Form Preview Section</div>
+                
+                <div class="component">
+                    <div class="component-name">Form Preview Container</div>
+                    <div class="component-class">.form-preview</div>
+                    <div class="component-description">
+                        Main container that appears when a template is selected. Contains the dynamic form.
+                    </div>
+                    <div class="component-location">File: styles.css, Line: ~500</div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">Form Title</div>
+                    <div class="component-class">.form-title</div>
+                    <div class="component-description">
+                        Container for form title and subtitle
+                    </div>
+                    <div class="component-location">File: styles.css, Line: ~510</div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">Form Main Title</div>
+                    <div class="component-class">h2 element</div>
+                    <div class="component-description">
+                        Main form title that changes based on theme:
+                        <br>• Modern: "✨ CREATE ISSUE"
+                        <br>• Sci-Fi: "⚡ QUANTUM ISSUE MATRIX"
+                        <br>• Barbie: "💖 BARBIE DREAM MATRIX"
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~235</div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">Form Subtitle</div>
+                    <div class="component-class">.form-subtitle</div>
+                    <div class="component-description">
+                        Shows selected template name with theme-specific emoji:
+                        <br>• Modern/Sci-Fi: "🔋 Template: {templateName}"
+                        <br>• Barbie: "💖 Template: {templateName}"
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~236</div>
+                </div>
+            </div>
+
+            <!-- FORM FIELDS SECTION -->
+            <div class="section">
+                <div class="section-title">🔧 Dynamic Form Fields Section</div>
+                
+                <div class="component">
+                    <div class="component-name">Form Field Container</div>
+                    <div class="component-class">.form-field</div>
+                    <div class="component-description">
+                        Individual field container with label, help text, and input
+                    </div>
+                    <div class="component-location">File: styles.css, Line: ~520</div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">Form Field Label</div>
+                    <div class="component-class">.form-field-label</div>
+                    <div class="component-description">
+                        Field label with diamond bullet (🔹) and required indicator (⚠) if needed.
+                        Shows [CONDITIONAL] tag for conditional fields.
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~245</div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">Form Field Help Text</div>
+                    <div class="component-class">.form-field-help</div>
+                    <div class="component-description">
+                        Optional help text with chart emoji (📊) prefix
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~253</div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">Form Field Input</div>
+                    <div class="component-class">.form-field-input</div>
+                    <div class="component-description">
+                        Input field that adapts based on field type (text, select, etc.)
+                        Placeholders include battery emoji (🔋) for text fields
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~140</div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">Text Input Field</div>
+                    <div class="component-class">.form-field-input</div>
+                    <div class="component-description">
+                        Standard text input with placeholder: "🔋 {fieldname}"
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~140</div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">User Selector Field</div>
+                    <div class="component-class">.form-field-input</div>
+                    <div class="component-description">
+                        Dropdown for user assignment:
+                        <br>• Default: "👤 Select neural operator..."
+                        <br>• Option: "🤖 Assign to me"
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~150</div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">Priority Selector Field</div>
+                    <div class="component-class">.form-field-input</div>
+                    <div class="component-description">
+                        Dropdown for priority selection:
+                        <br>• Default: "⚡ Select priority level..."
+                        <br>• Options: "🔴 CRITICAL", "🟡 STANDARD", "🟢 LOW"
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~160</div>
+                </div>
+            </div>
+
+            <!-- CONDITIONAL LOGIC SECTION -->
+            <div class="section">
+                <div class="section-title">🔀 Conditional Logic System</div>
+                
+                <div class="component">
+                    <div class="component-name">Conditional Field Indicator</div>
+                    <div class="component-class">span element</div>
+                    <div class="component-description">
+                        Orange "[CONDITIONAL]" tag shown on fields that depend on other field values
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~248</div>
+                    <div class="code-ref">
+                        color: '#ff6600'<br>
+                        fontSize: '12px'<br>
+                        fontStyle: 'italic'
+                    </div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">shouldShowField Function</div>
+                    <div class="component-class">JavaScript function</div>
+                    <div class="component-description">
+                        Logic that determines if a field should be visible based on:
+                        <br>• equals, not_equals, contains, not_empty, empty operators
+                        <br>• Dependent field values from form state
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~70</div>
+                </div>
+            </div>
+
+            <!-- VALIDATION SECTION -->
+            <div class="section">
+                <div class="section-title">✅ Field Validation System</div>
+                
+                <div class="component">
+                    <div class="component-name">Required Field Indicator</div>
+                    <div class="component-class">span element</div>
+                    <div class="component-description">
+                        Red warning symbol (⚠) shown next to required field labels
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~246</div>
+                    <div class="code-ref">
+                        color: '#ff0040'
+                    </div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">validateField Function</div>
+                    <div class="component-class">JavaScript function</div>
+                    <div class="component-description">
+                        Validates field input against patterns:
+                        <br>• Email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                        <br>• Phone: /^[\+]?[1-9][\d]{0,15}$/
+                        <br>• URL: /^https?:\/\/.+/
+                        <br>• Number: /^\d+$/
+                        <br>• Custom regex patterns
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~90</div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">validateForm Function</div>
+                    <div class="component-class">JavaScript function</div>
+                    <div class="component-description">
+                        Validates entire form before submission, checking:
+                        <br>• Required fields are filled
+                        <br>• Field validation patterns pass
+                        <br>• Only visible (conditional) fields are validated
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~115</div>
+                </div>
+            </div>
+
+            <!-- FORM ACTIONS SECTION -->
+            <div class="section">
+                <div class="section-title">🎯 Form Actions Section</div>
+                
+                <div class="component">
+                    <div class="component-name">Form Actions Container</div>
+                    <div class="component-class">.form-actions</div>
+                    <div class="component-description">
+                        Container for form submission and cancel buttons
+                    </div>
+                    <div class="component-location">File: styles.css, Line: ~600</div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">Create Issue Button</div>
+                    <div class="component-class">.btn-create</div>
+                    <div class="component-description">
+                        Primary submit button with theme-specific text:
+                        <br>• Modern: "✨ CREATE ISSUE"
+                        <br>• Sci-Fi: "🚀 DEPLOY ISSUE"
+                        <br>• Barbie: "💖 CREATE DREAM ISSUE"
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~265</div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">Cancel Button</div>
+                    <div class="component-class">.btn-cancel</div>
+                    <div class="component-description">
+                        Secondary cancel button with theme-specific text:
+                        <br>• Modern: "Cancel"
+                        <br>• Sci-Fi: "❌ ABORT"
+                        <br>• Barbie: "💖 CANCEL"
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~270</div>
+                </div>
+            </div>
+
+            <!-- ISSUE CREATION SECTION -->
+            <div class="section">
+                <div class="section-title">🚀 Issue Creation System</div>
+                
+                <div class="component">
+                    <div class="component-name">createIssue Function</div>
+                    <div class="component-class">JavaScript function</div>
+                    <div class="component-description">
+                        Main function that:
+                        <br>• Validates form before submission
+                        <br>• Calls createIssue resolver with project ID, template ID, and form data
+                        <br>• Shows success/error messages
+                        <br>• Resets form on successful creation
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~135</div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">Success Alert</div>
+                    <div class="component-class">JavaScript alert</div>
+                    <div class="component-description">
+                        Shows issue key when successfully created: "Issue created successfully! Key: {issueKey}"
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~150</div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">Error Alert</div>
+                    <div class="component-class">JavaScript alert</div>
+                    <div class="component-description">
+                        Shows validation errors or API errors with detailed messages
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~140</div>
+                </div>
+            </div>
+
+            <!-- PROJECT CONTEXT SECTION -->
+            <div class="section">
+                <div class="section-title">🏢 Project Context System</div>
+                
+                <div class="component">
+                    <div class="component-name">fetchCurrentProject Function</div>
+                    <div class="component-class">JavaScript function</div>
+                    <div class="component-description">
+                        Gets current Jira project context using getCurrentProject resolver.
+                        Falls back to test project if resolver fails.
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~32</div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">fetchProjectTemplates Function</div>
+                    <div class="component-class">JavaScript function</div>
+                    <div class="component-description">
+                        Fetches all templates and filters them by current project ID.
+                        Only shows templates that belong to the current project.
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~43</div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">Loading State</div>
+                    <div class="component-class">.form-container</div>
+                    <div class="component-description">
+                        Simple loading message shown while fetching project data and templates
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~185</div>
+                </div>
+            </div>
+
+            <!-- THEME INTEGRATION SECTION -->
+            <div class="section">
+                <div class="section-title">🎨 Theme Integration</div>
+                
+                <div class="component">
+                    <div class="component-name">Theme Provider Wrapper</div>
+                    <div class="component-class">ThemeProvider component</div>
+                    <div class="component-description">
+                        Wraps the entire ProjectForms component to provide theme context
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~285</div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">Theme Selector</div>
+                    <div class="component-class">ThemeSelector component</div>
+                    <div class="component-description">
+                        Floating theme switcher in top-right corner (same as Admin interface)
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~190</div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">Body Theme Application</div>
+                    <div class="component-class">useEffect hook</div>
+                    <div class="component-description">
+                        Applies theme class to document body and sets background/text colors
+                    </div>
+                    <div class="component-location">File: ProjectForms.jsx, Line: ~11</div>
+                    <div class="code-ref">
+                        document.body.className = `theme-${currentTheme}`;<br>
+                        document.body.style.background = theme.colors.background;
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISUAL LAYOUT PREVIEW -->
+            <div class="section">
+                <div class="section-title">👁️ Project Forms Visual Layout</div>
+                
+                <div class="component">
+                    <div class="component-name">Live Preview</div>
+                    <div class="component-description">
+                        This shows how the Project Settings page actually looks with all UI elements:
+                    </div>
+                    
+                    <!-- Mock Project Forms Layout -->
+                    <div style="border: 2px solid #ddd; border-radius: 8px; padding: 20px; margin: 20px 0; background: white;">
+                        
+                        <!-- Project Header -->
+                        <div class="project-header" style="text-align: center; margin-bottom: 30px;">
+                            <h1 class="project-title" style="font-size: 32px; margin-bottom: 10px;">✨ ISSUE CREATOR</h1>
+                            <div class="project-subtitle" style="font-size: 16px; color: #666;">[ PROJECT: Test Project ]</div>
+                        </div>
+                        
+                        <!-- Template Selection -->
+                        <div style="margin-bottom: 30px;">
+                            <label class="field-label" style="display: block; margin-bottom: 10px; font-weight: 600;">📊 Select Template:</label>
+                            <select class="form-select" style="width: 400px; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                                <option>📊 Choose a template...</option>
+                                <option>Bug Report Template</option>
+                                <option>Feature Request Template</option>
+                                <option>Support Request Template</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Form Preview Container -->
+                        <div class="form-preview" style="border: 2px solid #0052cc; border-radius: 8px; padding: 30px; background: #f9f9f9;">
+                            
+                            <!-- Form Title -->
+                            <div class="form-title" style="border-bottom: 2px solid #f4f5f7; padding-bottom: 15px; margin-bottom: 25px;">
+                                <h2 style="color: #172b4d; margin: 0 0 5px 0;">✨ CREATE ISSUE</h2>
+                                <p class="form-subtitle" style="color: #6b778c; margin: 0; font-size: 14px;">🔋 Template: Bug Report Template</p>
+                            </div>
+                            
+                            <!-- Form Fields -->
+                            <div class="form-field" style="margin-bottom: 25px;">
+                                <label class="form-field-label" style="display: block; font-weight: 600; margin-bottom: 8px; color: #172b4d;">🔹 Summary <span style="color: #ff0040;">⚠</span></label>
+                                <input type="text" class="form-field-input" placeholder="🔋 Enter issue summary..." style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 4px; font-size: 14px;" />
+                            </div>
+                            
+                            <div class="form-field" style="margin-bottom: 25px;">
+                                <label class="form-field-label" style="display: block; font-weight: 600; margin-bottom: 8px; color: #172b4d;">🔹 Description</label>
+                                <p class="form-field-help" style="margin: 0 0 8px 0; font-size: 12px; color: #6b778c; font-style: italic;">📊 Describe the issue in detail</p>
+                                <textarea class="form-field-input" placeholder="🔋 Enter detailed description..." style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 4px; font-size: 14px; height: 80px; resize: vertical;"></textarea>
+                            </div>
+                            
+                            <div class="form-field" style="margin-bottom: 25px;">
+                                <label class="form-field-label" style="display: block; font-weight: 600; margin-bottom: 8px; color: #172b4d;">🔹 Priority</label>
+                                <select class="form-field-input" style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 4px; font-size: 14px;">
+                                    <option>⚡ Select priority level...</option>
+                                    <option>🔴 CRITICAL</option>
+                                    <option>🟡 STANDARD</option>
+                                    <option>🟢 LOW</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-field" style="margin-bottom: 25px;">
+                                <label class="form-field-label" style="display: block; font-weight: 600; margin-bottom: 8px; color: #172b4d;">🔹 Assignee <span style="color: #ff6600; font-size: 12px; font-style: italic;">[CONDITIONAL]</span></label>
+                                <select class="form-field-input" style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 4px; font-size: 14px;">
+                                    <option>👤 Select neural operator...</option>
+                                    <option>🤖 Assign to me</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Form Actions -->
+                            <div class="form-actions" style="border-top: 1px solid #f4f5f7; padding-top: 20px; margin-top: 30px;">
+                                <button class="btn-create" style="padding: 12px 24px; background: #0052cc; color: white; border: none; border-radius: 4px; font-size: 14px; font-weight: 600; cursor: pointer; margin-right: 10px;">✨ CREATE ISSUE</button>
+                                <button class="btn-cancel" style="padding: 12px 24px; background: transparent; color: #6b778c; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; cursor: pointer;">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DEBUGGING TIPS -->
+            <div class="section">
+                <div class="section-title">🐛 Project Settings Debugging Tips</div>
+                
+                <div class="component">
+                    <div class="component-name">Common Issues</div>
+                    <div class="component-description">
+                        • <strong>No templates showing:</strong> Check project ID matching in fetchProjectTemplates<br>
+                        • <strong>Conditional fields not working:</strong> Verify shouldShowField logic and field IDs<br>
+                        • <strong>Validation not working:</strong> Check validateField patterns and form state<br>
+                        • <strong>Issue creation failing:</strong> Check resolver logs and Atlassian Document Format<br>
+                        • <strong>Theme not applying:</strong> Verify ThemeProvider wrapper and body class application
+                    </div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">Console Debugging</div>
+                    <div class="component-description">
+                        Key console logs to check:
+                        <br>• "Project context response:" - Current project detection
+                        <br>• "All templates:" / "Project templates:" - Template filtering
+                        <br>• "Calling resolver: createIssue" - Issue creation attempts
+                        <br>• "Create issue error:" - Detailed error information
+                    </div>
+                </div>
+
+                <div class="component">
+                    <div class="component-name">State Management</div>
+                    <div class="component-description">
+                        Key state variables:
+                        <br>• <strong>currentProject:</strong> Current Jira project context
+                        <br>• <strong>templates:</strong> Filtered templates for current project
+                        <br>• <strong>selectedTemplate:</strong> Currently selected form template
+                        <br>• <strong>formData:</strong> User input data for form fields
+                        <br>• <strong>loading:</strong> Loading state for initial data fetch
+                    </div>
+                </div>
+            </div>
+
+            <!-- NAVIGATION -->
+            <div style="text-align: center; margin: 40px 0; padding: 20px; background: #f0f0f0; border-radius: 8px;">
+                <h2>📖 UI Reference Pages</h2>
+                <div style="display: flex; gap: 20px; justify-content: center; margin-top: 20px;">
+                    <button onclick="showPage('admin')" id="adminBtn2" class="page-btn">🔧 Admin Form Builder</button>
+                    <button onclick="showPage('project')" id="projectBtn2" class="page-btn active-page">⚙️ Project Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .page-content {
+            width: 100%;
+        }
+        .page-btn {
+            padding: 12px 24px;
+            border: 2px solid #007acc;
+            background: white;
+            color: #007acc;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .page-btn:hover {
+            background: #007acc;
+            color: white;
+        }
+        .active-page {
+            background: #007acc !important;
+            color: white !important;
+        }
+    </style>
+
+    <!-- Theme Selector -->
+    <div class="theme-selector">
+        <button class="theme-btn active" onclick="setTheme('modern')">✨ Modern</button>
+        <button class="theme-btn" onclick="setTheme('scifi')">🚀 Sci-Fi</button>
+        <button class="theme-btn" onclick="setTheme('barbie')">💖 Barbie</button>
+    </div>
+    
+    <script>
+        function showPage(page) {
+            // Hide all pages
+            const adminPage = document.getElementById('adminPage');
+            const projectPage = document.getElementById('projectPage');
+            
+            if (adminPage) adminPage.style.display = 'none';
+            if (projectPage) projectPage.style.display = 'none';
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.page-btn').forEach(btn => {
+                btn.classList.remove('active-page');
+            });
+            
+            // Show selected page and activate buttons
+            if (page === 'admin' && adminPage) {
+                adminPage.style.display = 'block';
+                const adminBtns = document.querySelectorAll('#adminBtn, #adminBtn2');
+                adminBtns.forEach(btn => btn && btn.classList.add('active-page'));
+            } else if (page === 'project' && projectPage) {
+                projectPage.style.display = 'block';
+                const projectBtns = document.querySelectorAll('#projectBtn, #projectBtn2');
+                projectBtns.forEach(btn => btn && btn.classList.add('active-page'));
+            }
+        }
+        
+        function setTheme(theme) {
+            // Remove all theme classes
+            document.body.classList.remove('theme-modern', 'theme-scifi', 'theme-barbie');
+            
+            // Add new theme class
+            document.body.classList.add('theme-' + theme);
+            
+            // Update active theme button
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Store theme preference
+            localStorage.setItem('ui-reference-theme', theme);
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved theme or default to modern
+            const savedTheme = localStorage.getItem('ui-reference-theme') || 'modern';
+            document.body.classList.add('theme-' + savedTheme);
+            
+            // Update active theme button
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                if (btn.textContent.toLowerCase().includes(savedTheme)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Show admin page by default
+            showPage('admin');
+        });
+    </script>
 </body>
 </html>

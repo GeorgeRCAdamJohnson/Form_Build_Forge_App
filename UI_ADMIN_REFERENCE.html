@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Form Builder Reference</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Fredoka+One&family=Poppins:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: #1e293b;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-modern {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --primary-font: 'Inter', sans-serif;
+        }
+        
+        .theme-scifi {
+            --neon-cyan: #00ffff;
+            --neon-purple: #ff00ff;
+            --neon-green: #39ff14;
+            --background: linear-gradient(135deg, #0a0a0f 0%, #1a0a2e 50%, #16213e 100%);
+            --text: #ffffff;
+            --text-muted: #cccccc;
+            --primary-font: 'Exo 2', sans-serif;
+        }
+        
+        .theme-barbie {
+            --primary: #ff1493;
+            --secondary: #ff69b4;
+            --accent: #ffc0cb;
+            --background: linear-gradient(135deg, #ff69b4 0%, #ff1493 50%, #c71585 100%);
+            --text: #ffffff;
+            --text-muted: #ffccdd;
+            --primary-font: 'Poppins', sans-serif;
+        }
+        
+        body.theme-modern { background: var(--background); color: var(--text); font-family: var(--primary-font); }
+        body.theme-scifi { background: var(--background); color: var(--text); font-family: var(--primary-font); }
+        body.theme-barbie { background: var(--background); color: var(--text); font-family: var(--primary-font); }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .theme-scifi .container {
+            background: rgba(15, 15, 25, 0.9);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+        
+        .theme-barbie .container {
+            background: rgba(255, 192, 203, 0.9);
+            border: 1px solid rgba(255, 20, 147, 0.3);
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .section-title {
+            background: #007acc;
+            color: white;
+            padding: 10px 15px;
+            margin: -20px -20px 20px -20px;
+            border-radius: 6px 6px 0 0;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .component {
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #fafafa;
+        }
+        
+        .component-name {
+            font-weight: bold;
+            color: #007acc;
+            margin-bottom: 5px;
+        }
+        
+        .component-class {
+            font-family: monospace;
+            background: #e8e8e8;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .component-description {
+            margin-top: 8px;
+            color: #555;
+        }
+        
+        .component-location {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
+        .theme-note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        
+        .code-ref {
+            background: #f8f9fa;
+            border-left: 4px solid #007acc;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        
+        .theme-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
+        
+        .theme-btn {
+            padding: 8px 12px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        .theme-btn.active {
+            border-color: #6366f1;
+            background: #6366f1;
+            color: white;
+        }
+        
+        .theme-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: #6366f1;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .back-link:hover {
+            background: #5b21b6;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-selector">
+        <button class="theme-btn active" onclick="setTheme('modern')">✨ Modern</button>
+        <button class="theme-btn" onclick="setTheme('scifi')">🚀 Sci-Fi</button>
+        <button class="theme-btn" onclick="setTheme('barbie')">💖 Barbie</button>
+    </div>
+    
+    <div class="container">
+        <a href="UI_REFERENCE_INDEX.html" class="back-link">← Back to Index</a>
+        
+        <h1>🔧 Admin Form Builder UI Reference</h1>
+        <p>Complete component reference for the admin form builder interface with drag-and-drop functionality, theme system, and field configuration.</p>
+        
+        <div class="theme-note">
+            <strong>Theme System:</strong> All components support three themes: ✨ Modern (default), 🚀 Sci-Fi Cyber, and 💖 Barbie Dream
+        </div>
+
+        <!-- HEADER SECTION -->
+        <div class="section">
+            <div class="section-title">📋 Header Section</div>
+            
+            <div class="component">
+                <div class="component-name">Main Title</div>
+                <div class="component-class">.main-title</div>
+                <div class="component-description">
+                    Large gradient title that changes based on theme:
+                    <br>• Modern: "✨ FORM BUILDER STUDIO"
+                    <br>• Sci-Fi: "🚀 QUANTUM FORM BUILDER"
+                    <br>• Barbie: "💖 BARBIE FORM STUDIO"
+                </div>
+                <div class="component-location">File: FormBuilder.jsx, Line: ~75</div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Subtitle</div>
+                <div class="component-class">.main-subtitle</div>
+                <div class="component-description">
+                    Small subtitle below main title:
+                    <br>• Modern: "[ PROFESSIONAL INTERFACE v3.0 ]"
+                    <br>• Sci-Fi: "[ NEURAL INTERFACE v2.0 ]"
+                    <br>• Barbie: "[ DREAM INTERFACE v2.0 ]"
+                </div>
+                <div class="component-location">File: FormBuilder.jsx, Line: ~85</div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Theme Selector</div>
+                <div class="component-class">ThemeSelector component</div>
+                <div class="component-description">
+                    Floating theme switcher in top-right corner with three theme buttons:
+                    <br>• ✨ Ultra Modern (default)
+                    <br>• 🚀 Sci-Fi Cyber
+                    <br>• 💖 Barbie Dream
+                </div>
+                <div class="component-location">File: ThemeSelector.jsx</div>
+            </div>
+        </div>
+
+        <!-- FORM INPUTS SECTION -->
+        <div class="section">
+            <div class="section-title">📝 Form Input Section</div>
+            
+            <div class="component">
+                <div class="component-name">Form Header Container</div>
+                <div class="component-class">.form-header</div>
+                <div class="component-description">
+                    Grid container for the three main input fields at the top
+                </div>
+                <div class="component-location">File: styles.css, Line: ~25</div>
+                <div class="code-ref">
+                    display: grid;<br>
+                    grid-template-columns: 1fr 1fr 1fr;<br>
+                    gap: 15px;
+                </div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Template Name Input</div>
+                <div class="component-class">.form-input</div>
+                <div class="component-description">
+                    Text input for entering the form template name
+                    <br>• Modern placeholder: "📝 Template Name"
+                    <br>• Sci-Fi placeholder: "📝 Template Name"
+                    <br>• Barbie placeholder: "💖 Template Name"
+                </div>
+                <div class="component-location">File: FormBuilder.jsx, Line: ~95</div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Project Selector</div>
+                <div class="component-class">.form-select</div>
+                <div class="component-description">
+                    Dropdown to select which Jira project this template belongs to
+                </div>
+                <div class="component-location">File: FormBuilder.jsx, Line: ~102</div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Template Loader</div>
+                <div class="component-class">.form-select</div>
+                <div class="component-description">
+                    Dropdown to load existing saved templates
+                </div>
+                <div class="component-location">File: FormBuilder.jsx, Line: ~110</div>
+            </div>
+        </div>
+
+        <!-- MAIN LAYOUT SECTION -->
+        <div class="section">
+            <div class="section-title">🏗️ Main Layout Section</div>
+            
+            <div class="component">
+                <div class="component-name">Form Layout Container</div>
+                <div class="component-class">.form-layout</div>
+                <div class="component-description">
+                    Flex container that holds the two main columns (Available Fields and Selected Fields)
+                </div>
+                <div class="component-location">File: styles.css, Line: ~45</div>
+                <div class="code-ref">
+                    display: flex;<br>
+                    gap: 30px;
+                </div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Form Column</div>
+                <div class="component-class">.form-column</div>
+                <div class="component-description">
+                    Individual column container (flex: 1 to take equal space)
+                </div>
+                <div class="component-location">File: styles.css, Line: ~46</div>
+            </div>
+        </div>
+
+        <!-- AVAILABLE FIELDS SECTION -->
+        <div class="section">
+            <div class="section-title">📋 Available Fields Section (Left Column)</div>
+            
+            <div class="component">
+                <div class="component-name">Available Fields Title</div>
+                <div class="component-class">h3 element</div>
+                <div class="component-description">
+                    Section title that changes based on theme:
+                    <br>• Modern: "📊 Available Fields (90)"
+                    <br>• Sci-Fi: "🔍 Available Neural Fields (90)"
+                    <br>• Barbie: "💖 Available Dream Fields (90)"
+                </div>
+                <div class="component-location">File: FormBuilder.jsx, Line: ~120</div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Field Search Input</div>
+                <div class="component-class">.form-input</div>
+                <div class="component-description">
+                    Search box to filter available Jira fields
+                    <br>• Modern placeholder: "🔍 Search fields..."
+                    <br>• Sci-Fi placeholder: "🔍 Search quantum fields..."
+                    <br>• Barbie placeholder: "💖 Search dream fields..."
+                </div>
+                <div class="component-location">File: FormBuilder.jsx, Line: ~122</div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Field List Container</div>
+                <div class="component-class">.field-list</div>
+                <div class="component-description">
+                    Scrollable container that holds all available Jira fields
+                </div>
+                <div class="component-location">File: styles.css, Line: ~48</div>
+                <div class="code-ref">
+                    max-height: 400px;<br>
+                    overflow-y: auto;<br>
+                    border: 2px solid var(--border-glow);
+                </div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Field Item</div>
+                <div class="component-class">.field-item</div>
+                <div class="component-description">
+                    Individual clickable field in the available fields list. Shows field name and type.
+                </div>
+                <div class="component-location">File: styles.css, Line: ~57</div>
+                <div class="code-ref">
+                    cursor: pointer;<br>
+                    background: linear-gradient(135deg, ...);<br>
+                    transition: all 0.3s ease;
+                </div>
+            </div>
+        </div>
+
+        <!-- SELECTED FIELDS SECTION -->
+        <div class="section">
+            <div class="section-title">⚙️ Selected Fields Section (Right Column)</div>
+            
+            <div class="component">
+                <div class="component-name">Selected Fields Title</div>
+                <div class="component-class">h3 element</div>
+                <div class="component-description">
+                    Section title that changes based on theme:
+                    <br>• Modern: "⚙️ Selected Fields"
+                    <br>• Sci-Fi: "⚙️ Active Form Matrix"
+                    <br>• Barbie: "💖 Dream Form Collection"
+                </div>
+                <div class="component-location">File: FormBuilder.jsx, Line: ~135</div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Selected Fields Container</div>
+                <div class="component-class">.selected-fields-container</div>
+                <div class="component-description">
+                    Drag-and-drop container for selected fields with dashed border
+                </div>
+                <div class="component-location">File: styles.css, Line: ~400</div>
+                <div class="code-ref">
+                    min-height: 400px;<br>
+                    border: 2px dashed var(--border-glow);<br>
+                    background: linear-gradient(135deg, ...);
+                </div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Empty Fields Message</div>
+                <div class="component-class">.empty-fields-message</div>
+                <div class="component-description">
+                    Message shown when no fields are selected: "📝 Drag fields here or click fields from the left to add them"
+                </div>
+                <div class="component-location">File: styles.css, Line: ~420</div>
+            </div>
+        </div>
+
+        <!-- SORTABLE FIELD SECTION -->
+        <div class="section">
+            <div class="section-title">🔄 Sortable Field Component</div>
+            
+            <div class="component">
+                <div class="component-name">Sortable Field Container</div>
+                <div class="component-class">.sortable-field</div>
+                <div class="component-description">
+                    Wrapper for each draggable field in the selected fields area
+                </div>
+                <div class="component-location">File: styles.css, Line: ~350</div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Selected Field Card</div>
+                <div class="component-class">.selected-field</div>
+                <div class="component-description">
+                    Individual field card with configuration options
+                </div>
+                <div class="component-location">File: styles.css, Line: ~85</div>
+                <div class="code-ref">
+                    padding: 20px;<br>
+                    border: 2px solid var(--neon-purple);<br>
+                    background: linear-gradient(135deg, ...);
+                </div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Field Controls</div>
+                <div class="component-class">.field-controls</div>
+                <div class="component-description">
+                    Top row of each field card containing drag handle, field name, and remove button
+                </div>
+                <div class="component-location">File: styles.css, Line: ~95</div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Drag Handle</div>
+                <div class="component-class">.drag-handle</div>
+                <div class="component-description">
+                    Draggable handle (⋮⋮) for reordering fields
+                </div>
+                <div class="component-location">File: styles.css, Line: ~360</div>
+                <div class="code-ref">
+                    cursor: grab;<br>
+                    background: rgba(0, 255, 255, 0.1);<br>
+                    border: 1px solid rgba(0, 255, 255, 0.3);
+                </div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Remove Button</div>
+                <div class="component-class">.btn-danger</div>
+                <div class="component-description">
+                    Red button to remove field from selection
+                </div>
+                <div class="component-location">File: styles.css, Line: ~165</div>
+            </div>
+        </div>
+
+        <!-- FIELD CONFIGURATION SECTION -->
+        <div class="section">
+            <div class="section-title">🔧 Field Configuration Section</div>
+            
+            <div class="component">
+                <div class="component-name">Field Inputs Container</div>
+                <div class="component-class">.field-inputs</div>
+                <div class="component-description">
+                    Grid container for field configuration inputs (2 columns)
+                </div>
+                <div class="component-location">File: styles.css, Line: ~100</div>
+                <div class="code-ref">
+                    display: grid;<br>
+                    grid-template-columns: 1fr 1fr;<br>
+                    gap: 15px;
+                </div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Field Label</div>
+                <div class="component-class">.field-label</div>
+                <div class="component-description">
+                    Labels for configuration inputs (Friendly Name, Help Text, etc.)
+                </div>
+                <div class="component-location">File: styles.css, Line: ~105</div>
+                <div class="code-ref">
+                    color: var(--neon-cyan);<br>
+                    font-weight: 600;<br>
+                    text-transform: uppercase;
+                </div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Field Input</div>
+                <div class="component-class">.field-input</div>
+                <div class="component-description">
+                    Input fields for configuring field properties
+                </div>
+                <div class="component-location">File: styles.css, Line: ~115</div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Friendly Name Input</div>
+                <div class="component-class">.field-input</div>
+                <div class="component-description">
+                    Input to customize the display name of the field
+                </div>
+                <div class="component-location">File: FormBuilder.jsx, Line: ~55</div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Help Text Input</div>
+                <div class="component-class">.field-input</div>
+                <div class="component-description">
+                    Input to add helpful description text for the field
+                </div>
+                <div class="component-location">File: FormBuilder.jsx, Line: ~63</div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Required Checkbox</div>
+                <div class="component-class">input[type="checkbox"]</div>
+                <div class="component-description">
+                    Checkbox to mark field as required
+                </div>
+                <div class="component-location">File: FormBuilder.jsx, Line: ~72</div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Validation Pattern Selector</div>
+                <div class="component-class">select element</div>
+                <div class="component-description">
+                    Dropdown to choose validation pattern (Email, Phone, URL, etc.)
+                </div>
+                <div class="component-location">File: FormBuilder.jsx, Line: ~78</div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Conditional Field Selector</div>
+                <div class="component-class">select element</div>
+                <div class="component-description">
+                    Dropdown to choose which field this depends on for conditional logic
+                </div>
+                <div class="component-location">File: FormBuilder.jsx, Line: ~90</div>
+            </div>
+        </div>
+
+        <!-- SAVE SECTION -->
+        <div class="section">
+            <div class="section-title">💾 Save Section</div>
+            
+            <div class="component">
+                <div class="component-name">Save Template Button</div>
+                <div class="component-class">.btn-save</div>
+                <div class="component-description">
+                    Main save button with pulsing animation. Text changes based on theme:
+                    <br>• Modern: "✨ SAVE TEMPLATE"
+                    <br>• Sci-Fi: "🚀 DEPLOY TEMPLATE"
+                    <br>• Barbie: "💖 SAVE DREAM TEMPLATE"
+                </div>
+                <div class="component-location">File: styles.css, Line: ~175</div>
+                <div class="code-ref">
+                    animation: pulse 2s infinite;<br>
+                    background: linear-gradient(135deg, ...);<br>
+                    font-family: 'Orbitron', monospace;
+                </div>
+            </div>
+        </div>
+
+        <!-- ADMIN TABS SECTION -->
+        <div class="section">
+            <div class="section-title">📑 Admin Navigation Tabs</div>
+            
+            <div class="component">
+                <div class="component-name">Admin Header</div>
+                <div class="component-class">.admin-header</div>
+                <div class="component-description">
+                    Top navigation bar containing all admin tabs
+                </div>
+                <div class="component-location">File: styles.css, Line: ~200</div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Tab Button</div>
+                <div class="component-class">.tab-button</div>
+                <div class="component-description">
+                    Individual navigation tab button
+                </div>
+                <div class="component-location">File: styles.css, Line: ~210</div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Active Tab</div>
+                <div class="component-class">.tab-active</div>
+                <div class="component-description">
+                    Currently selected tab with highlighted styling
+                </div>
+                <div class="component-location">File: styles.css, Line: ~220</div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Inactive Tab</div>
+                <div class="component-class">.tab-inactive</div>
+                <div class="component-description">
+                    Non-selected tabs with hover effects
+                </div>
+                <div class="component-location">File: styles.css, Line: ~230</div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Version Display</div>
+                <div class="component-class">.version-display</div>
+                <div class="component-description">
+                    Version number shown in top-right:
+                    <br>• Modern: "v3.0"
+                    <br>• Sci-Fi/Barbie: "[ v2.0.QUANTUM ]"
+                </div>
+                <div class="component-location">File: styles.css, Line: ~240</div>
+            </div>
+        </div>
+
+        <!-- THEME SYSTEM -->
+        <div class="section">
+            <div class="section-title">🎨 Theme System</div>
+            
+            <div class="component">
+                <div class="component-name">Theme Provider</div>
+                <div class="component-class">ThemeProvider component</div>
+                <div class="component-description">
+                    React context provider that manages theme state and switching between three themes
+                </div>
+                <div class="component-location">File: ThemeProvider.jsx</div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Ultra Modern Theme (DEFAULT)</div>
+                <div class="component-class">.theme-modern</div>
+                <div class="component-description">
+                    Clean, professional theme with Inter fonts, subtle shadows, and modern UI patterns.
+                    Features glass-morphism effects, smooth animations, and excellent readability.
+                </div>
+                <div class="component-location">File: styles.css, Line: ~5</div>
+                <div class="code-ref">
+                    --primary: #6366f1;<br>
+                    --secondary: #8b5cf6;<br>
+                    --accent: #06b6d4;<br>
+                    --background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+                </div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Sci-Fi Cyber Theme</div>
+                <div class="component-class">.theme-scifi</div>
+                <div class="component-description">
+                    Cyberpunk theme with neon colors, Orbitron fonts, and futuristic styling.
+                    Dark background with glowing effects and terminal-inspired aesthetics.
+                </div>
+                <div class="component-location">File: styles.css, Line: ~200</div>
+                <div class="code-ref">
+                    --neon-cyan: #00ffff;<br>
+                    --neon-purple: #ff00ff;<br>
+                    --neon-green: #39ff14;<br>
+                    --background: linear-gradient(135deg, #0a0a0f 0%, #1a0a2e 50%, #16213e 100%);
+                </div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Barbie Dream Theme</div>
+                <div class="component-class">.theme-barbie</div>
+                <div class="component-description">
+                    Pink theme with Fredoka One fonts and playful styling.
+                    Bright pink gradients with rounded corners and fun animations.
+                </div>
+                <div class="component-location">File: styles.css, Line: ~700</div>
+                <div class="code-ref">
+                    --primary: #ff1493;<br>
+                    --secondary: #ff69b4;<br>
+                    --accent: #ffc0cb;<br>
+                    --background: linear-gradient(135deg, #ff69b4 0%, #ff1493 50%, #c71585 100%);
+                </div>
+            </div>
+        </div>
+
+        <!-- DEBUGGING TIPS -->
+        <div class="section">
+            <div class="section-title">🐛 Debugging Tips</div>
+            
+            <div class="component">
+                <div class="component-name">Finding Components</div>
+                <div class="component-description">
+                    1. Use browser DevTools to inspect element and find CSS class<br>
+                    2. Search for class name in styles.css<br>
+                    3. Search for component usage in .jsx files<br>
+                    4. Check all theme variants (.theme-modern, .theme-scifi, .theme-barbie)
+                </div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">Common Issues</div>
+                <div class="component-description">
+                    • Text hard to read: Check contrast colors in theme variables<br>
+                    • Styling not applying: Ensure theme class is on body element<br>
+                    • Drag not working: Check @dnd-kit imports and handlers<br>
+                    • Theme not switching: Verify ThemeProvider wraps component
+                </div>
+            </div>
+
+            <div class="component">
+                <div class="component-name">File Structure</div>
+                <div class="component-description">
+                    • <strong>FormBuilder.jsx</strong>: Main form builder component<br>
+                    • <strong>AdminApp.jsx</strong>: Tab navigation and layout<br>
+                    • <strong>ThemeProvider.jsx</strong>: Theme management<br>
+                    • <strong>ThemeSelector.jsx</strong>: Theme switcher UI<br>
+                    • <strong>styles.css</strong>: All CSS styles with theme variants
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin: 40px 0; padding: 20px; background: rgba(240, 240, 240, 0.5); border-radius: 8px;">
+            <p><a href="UI_PROJECT_REFERENCE.html" style="color: #6366f1; text-decoration: none; font-weight: 600;">→ View Project Settings Reference</a></p>
+        </div>
+    </div>
+
+    <script>
+        function setTheme(theme) {
+            document.body.classList.remove('theme-modern', 'theme-scifi', 'theme-barbie');
+            document.body.classList.add('theme-' + theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            localStorage.setItem('ui-reference-theme', theme);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('ui-reference-theme') || 'modern';
+            document.body.classList.add('theme-' + savedTheme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                if (btn.textContent.toLowerCase().includes(savedTheme)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

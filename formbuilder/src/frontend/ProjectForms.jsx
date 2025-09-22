@@ -188,50 +188,121 @@ const ProjectFormsContent = () => {
   };
 
   const renderField = (field) => {
+    const validation = validateField(field, formData[field.jiraId] || '');
+    const hasError = !validation.valid && formData[field.jiraId];
+    
+    const fieldProps = {
+      value: formData[field.jiraId] || '',
+      onChange: (e) => handleFieldChange(field.jiraId, e.target.value),
+      className: `form-field-input ${hasError ? 'field-error' : ''}`,
+      required: field.required || field.name === 'summary'
+    };
+
     switch (field.type) {
       case 'string':
         return (
-          <input 
-            type="text" 
-            placeholder={`🔋 ${field.friendlyName.toLowerCase()}`}
-            value={formData[field.jiraId] || ''}
-            onChange={(e) => handleFieldChange(field.jiraId, e.target.value)}
-            className="form-field-input"
-          />
+          <div>
+            <input 
+              type="text" 
+              placeholder={`🔋 ${field.friendlyName?.toLowerCase() || field.name}`}
+              {...fieldProps}
+            />
+            {hasError && <div className="field-error-message">{validation.message}</div>}
+          </div>
+        );
+      case 'textarea':
+        return (
+          <div>
+            <textarea 
+              placeholder={`📝 ${field.friendlyName?.toLowerCase() || field.name}`}
+              rows={4}
+              {...fieldProps}
+              onChange={(e) => handleFieldChange(field.jiraId, e.target.value)}
+            />
+            {hasError && <div className="field-error-message">{validation.message}</div>}
+          </div>
+        );
+      case 'number':
+        return (
+          <div>
+            <input 
+              type="number" 
+              placeholder={`🔢 ${field.friendlyName?.toLowerCase() || field.name}`}
+              min={field.minValue}
+              max={field.maxValue}
+              {...fieldProps}
+            />
+            {hasError && <div className="field-error-message">{validation.message}</div>}
+          </div>
+        );
+      case 'select':
+        return (
+          <div>
+            <select {...fieldProps}>
+              <option value="">🔽 Select {field.friendlyName?.toLowerCase() || field.name}...</option>
+              {field.options?.map(option => (
+                <option key={option.value} value={option.value}>{option.label}</option>
+              ))}
+            </select>
+            {hasError && <div className="field-error-message">{validation.message}</div>}
+          </div>
+        );
+      case 'multiselect':
+        return (
+          <div>
+            <div className="multiselect-container">
+              {field.options?.map(option => (
+                <label key={option.value} className="checkbox-option">
+                  <input 
+                    type="checkbox"
+                    checked={(formData[field.jiraId] || []).includes(option.value)}
+                    onChange={(e) => {
+                      const currentValues = formData[field.jiraId] || [];
+                      const newValues = e.target.checked 
+                        ? [...currentValues, option.value]
+                        : currentValues.filter(v => v !== option.value);
+                      handleFieldChange(field.jiraId, newValues);
+                    }}
+                  />
+                  {option.label}
+                </label>
+              ))}
+            </div>
+            {hasError && <div className="field-error-message">{validation.message}</div>}
+          </div>
         );
       case 'user':
         return (
-          <select 
-            value={formData[field.jiraId] || ''}
-            onChange={(e) => handleFieldChange(field.jiraId, e.target.value)}
-            className="form-field-input"
-          >
-            <option value="">👤 Select neural operator...</option>
-            <option value="currentUser">🤖 Assign to me</option>
-          </select>
+          <div>
+            <select {...fieldProps}>
+              <option value="">👤 Select user...</option>
+              <option value="currentUser">🤖 Assign to me</option>
+            </select>
+            {hasError && <div className="field-error-message">{validation.message}</div>}
+          </div>
         );
       case 'priority':
         return (
-          <select 
-            value={formData[field.jiraId] || ''}
-            onChange={(e) => handleFieldChange(field.jiraId, e.target.value)}
-            className="form-field-input"
-          >
-            <option value="">⚡ Select priority level...</option>
-            <option value="1">🔴 CRITICAL</option>
-            <option value="2">🟡 STANDARD</option>
-            <option value="3">🟢 LOW</option>
-          </select>
+          <div>
+            <select {...fieldProps}>
+              <option value="">⚡ Select priority...</option>
+              <option value="1">🔴 CRITICAL</option>
+              <option value="2">🟡 STANDARD</option>
+              <option value="3">🟢 LOW</option>
+            </select>
+            {hasError && <div className="field-error-message">{validation.message}</div>}
+          </div>
         );
       default:
         return (
-          <input 
-            type="text" 
-            placeholder={`🔋 ${field.friendlyName.toLowerCase()}`}
-            value={formData[field.jiraId] || ''}
-            onChange={(e) => handleFieldChange(field.jiraId, e.target.value)}
-            className="form-field-input"
-          />
+          <div>
+            <input 
+              type="text" 
+              placeholder={`🔋 ${field.friendlyName?.toLowerCase() || field.name}`}
+              {...fieldProps}
+            />
+            {hasError && <div className="field-error-message">{validation.message}</div>}
+          </div>
         );
     }
   };

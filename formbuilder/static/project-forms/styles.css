@@ -1,40 +1,507 @@
-/* Form Builder Styles */
-.form-container { padding: 20px; }
-.form-header { margin-bottom: 20px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-.form-input { padding: 8px; }
-.form-select { padding: 8px; }
-.form-layout { display: flex; gap: 20px; }
-.form-column { flex: 1; }
-.field-list { max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; }
-.field-item { padding: 8px; border: 1px solid #eee; margin: 5px 0; cursor: pointer; background-color: #f9f9f9; }
-.selected-field { padding: 15px; border: 1px solid #007acc; margin: 10px 0; background-color: #e6f3ff; }
-.field-controls { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
-.field-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.field-label { display: block; font-size: 12px; margin-bottom: 5px; }
-.field-input { width: 100%; padding: 5px; }
-.button-group { display: flex; gap: 5px; }
-.btn { padding: 5px 8px; border: none; cursor: pointer; }
-.btn-primary { background: #007acc; color: white; }
-.btn-danger { background: red; color: white; }
-.btn-save { margin-top: 20px; padding: 10px 20px; background: #007acc; color: white; border: none; cursor: pointer; }
-.btn-save:disabled { opacity: 0.5; }
+/* Multi-Theme System */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Fredoka+One&family=Poppins:wght@300;400;600;700&display=swap');
 
-/* Admin App Styles */
-.admin-header { border-bottom: 1px solid #ccc; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
-.tab-button { padding: 8px 16px; margin: 0 5px; border: none; cursor: pointer; }
-.tab-active { background-color: #007acc; color: white; }
-.tab-inactive { background-color: #f0f0f0; color: black; }
-.version-display { color: #666; font-size: 12px; }
+/* Ultra Modern Theme */
+.theme-modern {
+  --primary: #6366f1;
+  --secondary: #8b5cf6;
+  --accent: #06b6d4;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --success: #10b981;
+  --background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --border-glow: rgba(99, 102, 241, 0.2);
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --primary-font: 'Inter', sans-serif;
+  --heading-font: 'Inter', sans-serif;
+}
 
-/* View Form Styles */
-.form-preview { border: 2px solid #0052cc; border-radius: 8px; padding: 30px; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-.form-title { border-bottom: 2px solid #f4f5f7; padding-bottom: 15px; margin-bottom: 25px; }
-.form-title h2 { color: #172b4d; margin: 0 0 5px 0; }
-.form-subtitle { color: #6b778c; margin: 0; font-size: 14px; }
-.form-field { margin-bottom: 25px; }
-.form-field-label { display: block; font-weight: 600; margin-bottom: 8px; color: #172b4d; font-size: 14px; }
-.form-field-help { margin: 0 0 8px 0; font-size: 12px; color: #6b778c; font-style: italic; }
-.form-field-input { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 4px; font-size: 14px; }
-.form-actions { border-top: 1px solid #f4f5f7; padding-top: 20px; margin-top: 30px; }
-.btn-create { padding: 12px 24px; background: #0052cc; color: white; border: none; border-radius: 4px; font-size: 14px; font-weight: 600; cursor: pointer; margin-right: 10px; }
-.btn-cancel { padding: 12px 24px; background: transparent; color: #6b778c; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; cursor: pointer; }
+.theme-modern body {
+  background: var(--background);
+  color: var(--text);
+  font-family: var(--primary-font);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.theme-modern .form-container {
+  padding: 32px;
+  background: radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+}
+
+/* Project Header Styles */
+.project-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.project-title {
+  font-size: 32px;
+}
+
+.project-subtitle {
+  font-size: 16px;
+}
+
+.theme-modern .project-title {
+  color: var(--primary);
+  font-family: var(--heading-font);
+}
+
+.theme-modern .project-subtitle {
+  color: var(--text-muted);
+  font-family: var(--heading-font);
+}
+
+/* Form Preview */
+.form-preview {
+  border: 2px solid #0052cc;
+  border-radius: 8px;
+  padding: 30px;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.form-title {
+  border-bottom: 2px solid #f4f5f7;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+}
+
+.form-title h2 {
+  color: #172b4d;
+  margin: 0 0 5px 0;
+}
+
+.form-subtitle {
+  color: #6b778c;
+  margin: 0;
+  font-size: 14px;
+}
+
+.form-field {
+  margin-bottom: 25px;
+}
+
+.form-field-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #172b4d;
+  font-size: 14px;
+}
+
+.form-field-help {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  color: #6b778c;
+  font-style: italic;
+}
+
+.form-field-input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(4px);
+}
+
+.form-field-input:focus {
+  outline: none;
+  border-color: var(--primary, #6366f1);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.form-actions {
+  border-top: 1px solid #f4f5f7;
+  padding-top: 20px;
+  margin-top: 30px;
+}
+
+.btn-create {
+  padding: 12px 24px;
+  background: #0052cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.btn-cancel {
+  padding: 12px 24px;
+  background: transparent;
+  color: #6b778c;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.form-select {
+  padding: 12px 16px;
+  background: var(--card-bg);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  color: var(--text);
+  font-family: var(--primary-font);
+  font-weight: 500;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(8px);
+}
+
+.field-label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: var(--text);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+/* Sci-Fi Theme */
+.theme-scifi {
+  --neon-cyan: #00ffff;
+  --neon-purple: #ff00ff;
+  --neon-green: #39ff14;
+  --neon-orange: #ff6600;
+  --dark-bg: #0a0a0f;
+  --darker-bg: #050508;
+  --card-bg: rgba(15, 15, 25, 0.9);
+  --border-glow: rgba(0, 255, 255, 0.3);
+}
+
+.theme-scifi body {
+  background: linear-gradient(135deg, #0a0a0f 0%, #1a0a2e 50%, #16213e 100%);
+  color: #ffffff;
+  font-family: 'Exo 2', sans-serif;
+  min-height: 100vh;
+}
+
+.theme-scifi .form-container {
+  padding: 20px;
+  background: radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.1) 0%, transparent 50%);
+}
+
+.theme-scifi .project-title {
+  color: var(--neon-cyan);
+  font-family: 'Orbitron', monospace;
+  text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+.theme-scifi .project-subtitle {
+  color: var(--neon-purple);
+  font-family: 'Orbitron', monospace;
+  text-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+}
+
+.theme-scifi .form-select {
+  background: var(--card-bg);
+  border: 2px solid var(--border-glow);
+  color: #ffffff;
+  font-family: 'Exo 2', sans-serif;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+}
+
+.theme-scifi .field-label {
+  color: var(--neon-cyan);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.theme-scifi .form-preview {
+  border: 2px solid var(--neon-purple);
+  background: linear-gradient(135deg, rgba(15, 15, 25, 0.95) 0%, rgba(25, 15, 35, 0.95) 100%);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 0, 255, 0.2);
+  backdrop-filter: blur(15px);
+}
+
+.theme-scifi .form-title h2 {
+  color: var(--neon-cyan);
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+.theme-scifi .form-subtitle {
+  color: var(--neon-purple);
+  text-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+}
+
+.theme-scifi .form-field-label {
+  color: var(--neon-green);
+  font-family: 'Orbitron', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+}
+
+.theme-scifi .form-field-input {
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid var(--border-glow);
+  color: #ffffff;
+  font-family: 'Exo 2', sans-serif;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.theme-scifi .btn-create {
+  background: linear-gradient(135deg, var(--neon-green) 0%, var(--neon-cyan) 100%);
+  color: #000;
+  font-family: 'Orbitron', monospace;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.4);
+}
+
+.theme-scifi .btn-cancel {
+  background: transparent;
+  color: var(--neon-orange);
+  border: 2px solid var(--neon-orange);
+  font-family: 'Orbitron', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Barbie Dream Theme */
+.theme-barbie {
+  --primary: #ff1493;
+  --secondary: #ff69b4;
+  --accent: #ffc0cb;
+  --warning: #ff6347;
+  --danger: #dc143c;
+  --dark-text: #8b008b;
+  --contrast-text: #4b0082;
+  --background: linear-gradient(135deg, #ff69b4 0%, #ff1493 50%, #c71585 100%);
+  --card-bg: rgba(255, 192, 203, 0.9);
+  --border-glow: rgba(255, 20, 147, 0.4);
+  --text: #ffffff;
+  --primary-font: 'Poppins', sans-serif;
+  --heading-font: 'Fredoka One', cursive;
+}
+
+.theme-barbie body {
+  background: var(--background);
+  color: var(--text);
+  font-family: var(--primary-font);
+}
+
+.theme-barbie .form-container {
+  background: radial-gradient(circle at 20% 50%, rgba(255, 20, 147, 0.2) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(255, 105, 180, 0.2) 0%, transparent 50%);
+}
+
+.theme-barbie .project-title {
+  color: var(--contrast-text);
+  font-family: var(--heading-font);
+  text-shadow: 0 0 20px rgba(75, 0, 130, 0.6);
+}
+
+.theme-barbie .project-subtitle {
+  color: var(--dark-text);
+  font-family: var(--heading-font);
+  text-shadow: 0 0 10px rgba(139, 0, 139, 0.5);
+}
+
+.theme-barbie .form-select {
+  background: var(--card-bg);
+  border: 2px solid var(--border-glow);
+  color: #333;
+  font-family: var(--primary-font);
+  font-weight: 600;
+  box-shadow: 0 0 15px rgba(255, 20, 147, 0.3);
+}
+
+.theme-barbie .field-label {
+  color: var(--contrast-text);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(75, 0, 130, 0.3);
+}
+
+.theme-barbie .form-preview {
+  border: 2px solid var(--secondary);
+  background: linear-gradient(135deg, rgba(255, 192, 203, 0.95) 0%, rgba(255, 105, 180, 0.95) 100%);
+  box-shadow: 0 20px 40px rgba(255, 20, 147, 0.4);
+}
+
+.theme-barbie .form-title h2 {
+  color: var(--contrast-text);
+  font-family: var(--heading-font);
+  text-shadow: 0 0 20px rgba(75, 0, 130, 0.6);
+}
+
+.theme-barbie .form-subtitle {
+  color: var(--dark-text);
+  text-shadow: 0 0 10px rgba(139, 0, 139, 0.4);
+}
+
+.theme-barbie .form-field-label {
+  color: var(--contrast-text);
+  font-family: var(--heading-font);
+  text-shadow: 0 0 10px rgba(75, 0, 130, 0.4);
+}
+
+.theme-barbie .form-field-input {
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  font-weight: 600;
+}
+
+.theme-barbie .btn-create {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+  color: var(--contrast-text);
+  font-family: var(--heading-font);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+.theme-barbie .btn-cancel {
+  color: var(--warning);
+  border: 2px solid var(--warning);
+  font-family: var(--heading-font);
+}
+
+/* Theme Selector Styles */
+.theme-selector {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+.theme-btn {
+  padding: 8px 12px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.theme-btn.active {
+  border-color: #6366f1;
+  background: #6366f1;
+  color: white;
+}
+
+.theme-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced Field Validation Styles */
+.field-error {
+  border-color: var(--danger, #ef4444) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.field-error-message {
+  color: var(--danger, #ef4444);
+  font-size: 12px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* Multi-select and Checkbox Styles */
+.multiselect-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 4px 0;
+  font-size: 14px;
+}
+
+.checkbox-option input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary, #6366f1);
+}
+
+/* Textarea Styles */
+textarea.form-field-input {
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+}
+
+/* Number Input Styles */
+input[type="number"].form-field-input {
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Theme-specific validation styles */
+.theme-scifi .field-error {
+  border-color: var(--neon-orange) !important;
+  box-shadow: 0 0 10px rgba(255, 102, 0, 0.3);
+}
+
+.theme-scifi .field-error-message {
+  color: var(--neon-orange);
+  text-shadow: 0 0 5px rgba(255, 102, 0, 0.3);
+}
+
+.theme-scifi .multiselect-container {
+  background: rgba(0, 0, 0, 0.4);
+  border-color: var(--border-glow);
+}
+
+.theme-scifi .checkbox-option {
+  color: #ffffff;
+}
+
+.theme-barbie .field-error {
+  border-color: var(--warning) !important;
+  box-shadow: 0 0 10px rgba(255, 99, 71, 0.3);
+}
+
+.theme-barbie .field-error-message {
+  color: var(--warning);
+  font-weight: 700;
+}
+
+.theme-barbie .multiselect-container {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--border-glow);
+}
+
+.theme-barbie .checkbox-option {
+  color: var(--contrast-text);
+  font-weight: 600;
+}

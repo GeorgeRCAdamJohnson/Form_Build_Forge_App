@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Builder UI Reference</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Fredoka+One&family=Poppins:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .index-container {
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: #64748b;
+            margin-bottom: 50px;
+            font-weight: 500;
+        }
+        
+        .page-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .page-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            border: 2px solid transparent;
+        }
+        
+        .page-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: #6366f1;
+        }
+        
+        .page-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #1e293b;
+        }
+        
+        .page-description {
+            color: #64748b;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        
+        .theme-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
+        
+        .theme-btn {
+            padding: 8px 12px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            background: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            color: #64748b;
+        }
+        
+        .theme-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-color: #6366f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-selector">
+        <span style="color: #64748b; font-weight: 600; padding: 8px 12px;">🎨 Theme Testing Available</span>
+    </div>
+    
+    <div class="index-container">
+        <h1>🚀 Form Builder UI Reference</h1>
+        <p class="subtitle">Complete component reference guide with live theme testing</p>
+        
+        <div class="page-grid">
+            <a href="UI_ADMIN_REFERENCE.html" class="page-card">
+                <div class="page-icon">🔧</div>
+                <div class="page-title">Admin Form Builder</div>
+                <div class="page-description">
+                    Complete reference for the admin interface including drag-and-drop field builder, 
+                    theme system, field configuration, and all form building components.
+                </div>
+            </a>
+            
+            <a href="UI_PROJECT_REFERENCE.html" class="page-card">
+                <div class="page-icon">⚙️</div>
+                <div class="page-title">Project Settings</div>
+                <div class="page-description">
+                    User-facing form interface reference including template selection, 
+                    dynamic forms, conditional logic, validation, and issue creation.
+                </div>
+            </a>
+        </div>
+        
+        <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid #e2e8f0;">
+            <p style="color: #64748b; font-size: 14px;">
+                Each page includes live theme testing with ✨ Modern, 🚀 Sci-Fi, and 💖 Barbie themes
+            </p>
+        </div>
+    </div>
+</body>
+</html>
