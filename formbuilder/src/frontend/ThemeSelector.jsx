@@ -25,7 +25,9 @@ const ThemeSelector = () => {
             padding: '8px 16px',
             border: currentTheme === key ? '2px solid #fff' : '2px solid transparent',
             borderRadius: '8px',
-            background: key === 'scifi' 
+            background: key === 'modern'
+              ? 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)'
+              : key === 'scifi' 
               ? 'linear-gradient(135deg, #00ffff 0%, #ff00ff 100%)'
               : 'linear-gradient(135deg, #ff1493 0%, #ff69b4 100%)',
             color: '#fff',

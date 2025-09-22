@@ -40,29 +40,29 @@ const AdminAppContent = () => {
           onClick={() => setActiveTab('builder')}
           className={activeTab === 'builder' ? 'tab-button tab-active' : 'tab-button tab-inactive'}
         >
-          🛠️ NEURAL BUILDER
+          {currentTheme === 'modern' ? '🛠️ Form Builder' : '🛠️ NEURAL BUILDER'}
         </button>
         <button 
           onClick={() => setActiveTab('browse')}
           className={activeTab === 'browse' ? 'tab-button tab-active' : 'tab-button tab-inactive'}
         >
-          📊 TEMPLATE MATRIX
+          {currentTheme === 'modern' ? '📊 Templates' : '📊 TEMPLATE MATRIX'}
         </button>
         <button 
           onClick={() => setActiveTab('view')}
           className={activeTab === 'view' ? 'tab-button tab-active' : 'tab-button tab-inactive'}
         >
-          👁️ PREVIEW MODE
+          {currentTheme === 'modern' ? '👁️ Preview' : '👁️ PREVIEW MODE'}
         </button>
         <button 
           onClick={() => setActiveTab('readme')}
           className={activeTab === 'readme' ? 'tab-button tab-active' : 'tab-button tab-inactive'}
         >
-          📖 SYSTEM INFO
+          {currentTheme === 'modern' ? '📖 About' : '📖 SYSTEM INFO'}
         </button>
         </div>
         <div className="version-display">
-          [ v2.0.QUANTUM ]
+          {currentTheme === 'modern' ? 'v3.0' : '[ v2.0.QUANTUM ]'}
         </div>
       </div>
       {renderContent()}

@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { invokeResolver } from './api';
-import { useTheme } from './ThemeProvider';
+import { ThemeProvider, useTheme } from './ThemeProvider';
+import ThemeSelector from './ThemeSelector';
 
-const ProjectForms = () => {
+const ProjectFormsContent = () => {
   const { theme, currentTheme } = useTheme();
   const [templates, setTemplates] = useState([]);
+
+  // Apply theme to body
+  useEffect(() => {
+    document.body.className = `theme-${currentTheme}`;
+    document.body.style.background = theme.colors.background;
+    document.body.style.color = theme.colors.text;
+    document.body.style.fontFamily = theme.fonts.primary;
+  }, [theme, currentTheme]);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(true);
@@ -231,32 +240,19 @@ const ProjectForms = () => {
 
   return (
     <div className="form-container">
-      <div style={{ textAlign: 'center', marginBottom: '30px' }}>
-        <h1 style={{ 
-          fontSize: '32px', 
-          color: currentTheme === 'barbie' ? '#4b0082' : theme.colors.primary,
-          fontFamily: theme.fonts.heading,
-          textShadow: currentTheme === 'barbie' 
-            ? '0 0 20px rgba(75, 0, 130, 0.6), 0 2px 4px rgba(0,0,0,0.3)' 
-            : '0 0 20px rgba(0, 255, 255, 0.5)'
-        }}>
-          {currentTheme === 'barbie' ? '💖 BARBIE ISSUE CREATOR' : '⚡ QUANTUM ISSUE GENERATOR'}
+      <ThemeSelector />
+      <div className="project-header">
+        <h1 className="project-title">
+          {currentTheme === 'modern' ? '✨ ISSUE CREATOR' : currentTheme === 'barbie' ? '💖 BARBIE ISSUE CREATOR' : '⚡ QUANTUM ISSUE GENERATOR'}
         </h1>
-        <div style={{ 
-          color: currentTheme === 'barbie' ? '#8b008b' : theme.colors.secondary, 
-          fontSize: '16px', 
-          fontFamily: theme.fonts.heading,
-          textShadow: currentTheme === 'barbie' 
-            ? '0 0 10px rgba(139, 0, 139, 0.5)' 
-            : '0 0 10px rgba(255, 0, 255, 0.3)'
-        }}>
+        <div className="project-subtitle">
           [ PROJECT: {currentProject?.name || 'UNKNOWN'} ]
         </div>
       </div>
       
       <div style={{ marginBottom: '30px' }}>
         <label className="field-label" style={{ display: 'block', marginBottom: '10px' }}>
-          {currentTheme === 'barbie' ? '💖 Select Dream Template:' : '📊 Select Neural Template:'}
+          {currentTheme === 'modern' ? '📊 Select Template:' : currentTheme === 'barbie' ? '💖 Select Dream Template:' : '📊 Select Neural Template:'}
         </label>
         <select 
           value={selectedTemplate?.id || ''}
@@ -268,7 +264,7 @@ const ProjectForms = () => {
           className="form-select"
           style={{ width: '400px' }}
         >
-          <option value="">{currentTheme === 'barbie' ? '💖 Choose your dream template...' : '🔍 Initialize template matrix...'}</option>
+          <option value="">{currentTheme === 'modern' ? '📊 Choose a template...' : currentTheme === 'barbie' ? '💖 Choose your dream template...' : '🔍 Initialize template matrix...'}</option>
           {templates.map(template => (
             <option key={template.id} value={template.id}>{template.name}</option>
           ))}
@@ -278,7 +274,7 @@ const ProjectForms = () => {
       {selectedTemplate && (
         <div className="form-preview">
           <div className="form-title">
-            <h2>{currentTheme === 'barbie' ? '💖 BARBIE DREAM MATRIX' : '⚡ QUANTUM ISSUE MATRIX'}</h2>
+            <h2>{currentTheme === 'modern' ? '✨ CREATE ISSUE' : currentTheme === 'barbie' ? '💖 BARBIE DREAM MATRIX' : '⚡ QUANTUM ISSUE MATRIX'}</h2>
             <p className="form-subtitle">{currentTheme === 'barbie' ? '💖' : '🔋'} Template: {selectedTemplate.name}</p>
           </div>
           
@@ -307,7 +303,7 @@ const ProjectForms = () => {
             
             <div className="form-actions">
               <button type="submit" className="btn-create">
-                {currentTheme === 'barbie' ? '💖 CREATE DREAM ISSUE' : '🚀 DEPLOY ISSUE'}
+                {currentTheme === 'modern' ? '✨ CREATE ISSUE' : currentTheme === 'barbie' ? '💖 CREATE DREAM ISSUE' : '🚀 DEPLOY ISSUE'}
               </button>
               <button 
                 type="button" 
@@ -317,13 +313,21 @@ const ProjectForms = () => {
                   setFormData({});
                 }}
               >
-                {currentTheme === 'barbie' ? '💖 CANCEL' : '❌ ABORT'}
+                {currentTheme === 'modern' ? 'Cancel' : currentTheme === 'barbie' ? '💖 CANCEL' : '❌ ABORT'}
               </button>
             </div>
           </form>
         </div>
       )}
     </div>
+  );
+};
+
+const ProjectForms = () => {
+  return (
+    <ThemeProvider>
+      <ProjectFormsContent />
+    </ThemeProvider>
   );
 };
 

@@ -340,35 +340,19 @@ const FormBuilder = () => {
 
   return (
     <div className="form-container">
-      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-        <h1 style={{ 
-          fontSize: '36px', 
-          color: currentTheme === 'barbie' ? '#4b0082' : theme.colors.primary,
-          marginBottom: '10px',
-          fontFamily: theme.fonts.heading,
-          textShadow: currentTheme === 'barbie' 
-            ? '0 0 20px rgba(75, 0, 130, 0.6), 0 2px 4px rgba(0,0,0,0.3)' 
-            : '0 0 20px rgba(0, 255, 255, 0.5)'
-        }}>
-          {currentTheme === 'barbie' ? '💖 BARBIE FORM STUDIO' : '🚀 QUANTUM FORM BUILDER'}
+      <div className="header-section">
+        <h1 className="main-title">
+          {currentTheme === 'modern' ? '✨ FORM BUILDER STUDIO' : currentTheme === 'barbie' ? '💖 BARBIE FORM STUDIO' : '🚀 QUANTUM FORM BUILDER'}
         </h1>
-        <div style={{ 
-          color: currentTheme === 'barbie' ? '#8b008b' : theme.colors.accent, 
-          fontSize: '14px', 
-          fontFamily: theme.fonts.heading,
-          letterSpacing: '2px',
-          textShadow: currentTheme === 'barbie' 
-            ? '0 0 10px rgba(139, 0, 139, 0.5)' 
-            : '0 0 10px rgba(57, 255, 20, 0.5)'
-        }}>
-          {currentTheme === 'barbie' ? '[ DREAM INTERFACE v2.0 ]' : '[ NEURAL INTERFACE v2.0 ]'}
+        <div className="main-subtitle">
+          {currentTheme === 'modern' ? '[ PROFESSIONAL INTERFACE v3.0 ]' : currentTheme === 'barbie' ? '[ DREAM INTERFACE v2.0 ]' : '[ NEURAL INTERFACE v2.0 ]'}
         </div>
       </div>
       
       <div className="form-header">
         <input 
           type="text" 
-          placeholder={currentTheme === 'barbie' ? '💖 Template Name' : '📝 Template Name'}
+          placeholder={currentTheme === 'modern' ? '📝 Template Name' : currentTheme === 'barbie' ? '💖 Template Name' : '📝 Template Name'}
           value={templateName}
           onChange={(e) => setTemplateName(e.target.value)}
           className="form-input"
@@ -398,10 +382,10 @@ const FormBuilder = () => {
 
       <div className="form-layout">
         <div className="form-column">
-          <h3>{currentTheme === 'barbie' ? '💖 Available Dream Fields' : '🔍 Available Neural Fields'} ({availableFields.length})</h3>
+          <h3>{currentTheme === 'modern' ? '📊 Available Fields' : currentTheme === 'barbie' ? '💖 Available Dream Fields' : '🔍 Available Neural Fields'} ({availableFields.length})</h3>
           <input 
             type="text" 
-            placeholder={currentTheme === 'barbie' ? '💖 Search dream fields...' : '🔍 Search quantum fields...'}
+            placeholder={currentTheme === 'modern' ? '🔍 Search fields...' : currentTheme === 'barbie' ? '💖 Search dream fields...' : '🔍 Search quantum fields...'}
             value={fieldSearch}
             onChange={(e) => setFieldSearch(e.target.value)}
             className="form-input"
@@ -424,7 +408,7 @@ const FormBuilder = () => {
         </div>
 
         <div className="form-column">
-          <h3>{currentTheme === 'barbie' ? '💖 Dream Form Collection' : '⚙️ Active Form Matrix'}</h3>
+          <h3>{currentTheme === 'modern' ? '⚙️ Selected Fields' : currentTheme === 'barbie' ? '💖 Dream Form Collection' : '⚙️ Active Form Matrix'}</h3>
           <DndContext 
             sensors={sensors}
             collisionDetection={closestCenter}
@@ -471,7 +455,7 @@ const FormBuilder = () => {
         className="btn-save"
         disabled={!templateName || selectedFields.length === 0 || !selectedProject}
       >
-        {currentTheme === 'barbie' ? '💖 SAVE DREAM TEMPLATE' : '🚀 DEPLOY TEMPLATE'}
+        {currentTheme === 'modern' ? '✨ SAVE TEMPLATE' : currentTheme === 'barbie' ? '💖 SAVE DREAM TEMPLATE' : '🚀 DEPLOY TEMPLATE'}
       </button>
     </div>
   );

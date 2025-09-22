@@ -11,6 +11,24 @@ export const useTheme = () => {
 };
 
 const themes = {
+  modern: {
+    name: '✨ Ultra Modern',
+    colors: {
+      primary: '#6366f1',
+      secondary: '#8b5cf6',
+      accent: '#06b6d4',
+      warning: '#f59e0b',
+      danger: '#ef4444',
+      background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
+      cardBg: 'rgba(255, 255, 255, 0.8)',
+      borderGlow: 'rgba(99, 102, 241, 0.2)',
+      text: '#1e293b'
+    },
+    fonts: {
+      primary: "'Inter', sans-serif",
+      heading: "'Inter', sans-serif"
+    }
+  },
   scifi: {
     name: '🚀 Sci-Fi Cyber',
     colors: {
@@ -50,7 +68,7 @@ const themes = {
 };
 
 export const ThemeProvider = ({ children }) => {
-  const [currentTheme, setCurrentTheme] = useState('scifi');
+  const [currentTheme, setCurrentTheme] = useState('modern');
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('formBuilderTheme');
